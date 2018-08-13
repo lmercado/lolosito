@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name"></string>
+    <string name="search">Search</string>
+
+    <string-array name="servers_array">
+        <item>BR</item>
+        <item>EUNE</item>
+        <item>EUW</item>
+        <item>LAN</item>
+        <item>LAS</item>
+        <item>NA</item>
+        <item>OCE</item>
+        <item>RU</item>
+        <item>TR</item>
+        <item>JP</item>
+    </string-array>
+
+</resources>

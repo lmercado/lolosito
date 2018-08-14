@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ngti.leandro.lol.champions.Champions;
-import com.ngti.leandro.lol.matches.Matches;
+import com.ngti.leandro.lol.allMatches.AllMatches;
 import com.ngti.leandro.lol.recent.matches.ChampionsAndMatches;
 
 import java.util.Map;
@@ -36,7 +36,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         Context context = holder.iv_champion_icon.getContext();
         String championName = "";
 
-        Matches match = championsAndMatches.get(position);
+        AllMatches match = championsAndMatches.get(position);
 
         for (Map.Entry<Integer, Champions> entry : championsAndMatches.entrySet()) {
             Integer key = (Integer) entry.getKey();

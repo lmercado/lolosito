@@ -1,7 +1,7 @@
 package com.ngti.leandro.lol.recent.matches;
 
 import com.ngti.leandro.lol.champions.Champions;
-import com.ngti.leandro.lol.matches.Matches;
+import com.ngti.leandro.lol.allMatches.AllMatches;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -9,14 +9,14 @@ import java.util.Set;
 
 public class ChampionsAndMatches {
     private final Map<Integer, Champions> champions;
-    private final ArrayList<Matches> matches;
+    private final ArrayList<AllMatches> matches;
 
-    public ChampionsAndMatches(Map<Integer, Champions> allChampions, ArrayList<Matches> matches) {
+    public ChampionsAndMatches(Map<Integer, Champions> allChampions, ArrayList<AllMatches> matches) {
         this.champions = allChampions;
         this.matches = matches;
     }
 
-    public Matches get(int position) {
+    public AllMatches get(int position) {
         return matches.get(position);
     }
 

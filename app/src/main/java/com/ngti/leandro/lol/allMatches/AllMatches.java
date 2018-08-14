@@ -1,8 +1,8 @@
-package com.ngti.leandro.lol.matches;
+package com.ngti.leandro.lol.allMatches;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Matches {
+public class AllMatches {
     @SerializedName("lane")
     private String lane;
 

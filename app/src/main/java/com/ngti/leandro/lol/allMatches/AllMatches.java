@@ -27,7 +27,6 @@ public class AllMatches {
     @SerializedName("season")
     private Integer season;
 
-
     public String getLane() {
         return lane;
     }
@@ -58,5 +57,19 @@ public class AllMatches {
 
     public Integer getSeason() {
         return season;
+    }
+
+    @Override
+    public String toString() {
+        return "AllMatches{" +
+                "lane='" + lane + '\'' +
+                ", gameId=" + gameId +
+                ", champion=" + champion +
+                ", platformId='" + platformId + '\'' +
+                ", timestamp=" + timestamp +
+                ", queue=" + queue +
+                ", role='" + role + '\'' +
+                ", season=" + season +
+                '}';
     }
 }

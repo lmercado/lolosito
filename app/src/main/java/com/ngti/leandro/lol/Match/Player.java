@@ -19,7 +19,7 @@ public class Player {
 
     @Expose
     @SerializedName("accountId")
-    private int accountId;
+    private long accountId;
 
 
     public String getSummonerName() {
@@ -34,7 +34,7 @@ public class Player {
         return summonerId;
     }
 
-    public int getAccountId() {
+    public long getAccountId() {
         return accountId;
     }
 

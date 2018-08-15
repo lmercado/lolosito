@@ -13,6 +13,10 @@ public class AllMatchesContainer {
         return matches;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "AllMatchesContainer{" +
+                "matches=" + matches +
+                '}';
+    }
 }

@@ -36,4 +36,14 @@ public class Champions {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Champions{" +
+                "title='" + title + '\'' +
+                ", id=" + id +
+                ", key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

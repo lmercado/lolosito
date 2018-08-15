@@ -100,7 +100,7 @@
             tools:text="145 CS" />
 
         <ImageView
-            android:id="@+id/iv_champion_item1"
+            android:id="@+id/iv_champion_item0"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
@@ -109,7 +109,7 @@
             card_view:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <ImageView
-            android:id="@+id/iv_champion_item2"
+            android:id="@+id/iv_champion_item1"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
@@ -118,7 +118,7 @@
             card_view:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <ImageView
-            android:id="@+id/iv_champion_item3"
+            android:id="@+id/iv_champion_item2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
@@ -127,7 +127,7 @@
             card_view:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <ImageView
-            android:id="@+id/iv_champion_item4"
+            android:id="@+id/iv_champion_item3"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_above="@+id/tv_champion_name"
@@ -135,7 +135,7 @@
             card_view:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <ImageView
-            android:id="@+id/iv_champion_item5"
+            android:id="@+id/iv_champion_item4"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_above="@+id/tv_champion_name"
@@ -143,7 +143,7 @@
             card_view:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <ImageView
-            android:id="@+id/iv_champion_item6"
+            android:id="@+id/iv_champion_item5"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_above="@+id/tv_champion_name"

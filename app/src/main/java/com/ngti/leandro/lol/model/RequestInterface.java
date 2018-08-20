@@ -14,15 +14,14 @@ import retrofit2.http.Path;
 
 public interface RequestInterface {
 
+    String AUTHORIZATION = "X-Riot-Token: RGAPI-607369cd-6a4b-4b4b-be2c-da1e758d716b";
+
     String MATCH_LIST_BY_ACCOUNT_ID = "/lol/match/v3/matchlists/by-account/{accountId}?endIndex=5";
     String CHAMPIONS_LIST = "/lol/static-data/v3/champions";
     String DDRAGON_API_VERSIONS = "/realms/na.json";
-
-    String AUTHORIZATION = "X-Riot-Token: RGAPI-0301c799-0fe4-4815-8105-f994a3a34b14";
     String SUMMONER_BY_NAME = "/lol/summoner/v3/summoners/by-name/{summonerName}";
     String MATCH_BY_ID = "/lol/match/v3/matches/{matchId}";
     String DDRAGON_SUMMONER_SPELLS = "/cdn/8.16.1/data/en_US/summoner.json";
-
 
     @Headers(AUTHORIZATION)
     @GET(MATCH_LIST_BY_ACCOUNT_ID)

@@ -12,11 +12,10 @@ public class ChampionsAndMatches {
     private final Map<Integer, Champion> champions;
     private final ArrayList<AllMatches> matches;
     private final Map<Long, MatchContainer> matchesInfo;
-    private int apiResponseCode;
 
-    public ChampionsAndMatches(Map<Integer, Champion> allChampions,
-                               ArrayList<AllMatches> matches,
-                               Map<Long, MatchContainer> matchesInfo) {
+    ChampionsAndMatches(Map<Integer, Champion> allChampions,
+                        ArrayList<AllMatches> matches,
+                        Map<Long, MatchContainer> matchesInfo) {
         this.champions = allChampions;
         this.matches = matches;
         this.matchesInfo = matchesInfo;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".summoner.search.SummonerSearchActivity">
+    tools:context=".search.SummonerServerSearchActivity">
 
     <Button
         android:id="@+id/searchButton"

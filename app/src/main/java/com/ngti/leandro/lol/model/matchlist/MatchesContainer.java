@@ -1,10 +1,11 @@
-package com.ngti.leandro.lol.allMatches;
+package com.ngti.leandro.lol.model.matchlist;
 
 import com.google.gson.annotations.SerializedName;
+import com.ngti.leandro.lol.model.matchlist.AllMatches;
 
 import java.util.List;
 
-public class AllMatchesContainer {
+public class MatchesContainer {
 
     @SerializedName("matches")
     List<AllMatches> matches;
@@ -15,7 +16,7 @@ public class AllMatchesContainer {
 
     @Override
     public String toString() {
-        return "AllMatchesContainer{" +
+        return "MatchesContainer{" +
                 "matches=" + matches +
                 '}';
     }

@@ -1,9 +1,9 @@
-package com.ngti.leandro.lol.champions;
+package com.ngti.leandro.lol.model.champions;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Champions {
+public class Champion {
 
     @Expose
     @SerializedName("title")
@@ -39,7 +39,7 @@ public class Champions {
 
     @Override
     public String toString() {
-        return "Champions{" +
+        return "Champion{" +
                 "title='" + title + '\'' +
                 ", id=" + id +
                 ", key='" + key + '\'' +

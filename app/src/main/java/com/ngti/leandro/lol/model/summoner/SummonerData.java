@@ -1,4 +1,4 @@
-package com.ngti.leandro.lol.summoner.search;
+package com.ngti.leandro.lol.model.summoner;
 
 import com.google.gson.annotations.SerializedName;
 

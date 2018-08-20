@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".summoner.search.SummonerSearchActivity"
+        <activity android:name=".search.SummonerServerSearchActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".recent.matches.RecentMatchesActivity"
+        <activity android:name=".recentmatches.RecentMatchesActivity"
             android:screenOrientation="portrait"/>
 
     </application>

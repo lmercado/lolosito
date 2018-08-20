@@ -1,4 +1,4 @@
-package com.ngti.leandro.lol.summoner.search;
+package com.ngti.leandro.lol.search;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ngti.leandro.lol.R;
-import com.ngti.leandro.lol.recent.matches.RecentMatchesActivity;
+import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 
-public class SummonerSearchActivity extends AppCompatActivity {
+public class SummonerServerSearchActivity extends AppCompatActivity {
 
     private Button searchButton;
     private Spinner serversSpinner;
@@ -36,7 +36,7 @@ public class SummonerSearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SummonerSearchActivity.this, RecentMatchesActivity.class);
+                Intent intent = new Intent(SummonerServerSearchActivity.this, RecentMatchesActivity.class);
                 Bundle b = new Bundle();
 
                 b.putString("server", serversSpinner.getSelectedItem().toString());

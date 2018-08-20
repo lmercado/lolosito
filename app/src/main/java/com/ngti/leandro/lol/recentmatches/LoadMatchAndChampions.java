@@ -1,20 +1,23 @@
-package com.ngti.leandro.lol.recent.matches;
+package com.ngti.leandro.lol.recentmatches;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ngti.leandro.lol.Match.MatchGeneral;
-import com.ngti.leandro.lol.RequestInterface;
-import com.ngti.leandro.lol.RetrofitClientInstance;
-import com.ngti.leandro.lol.champions.Champions;
-import com.ngti.leandro.lol.champions.ChampionsContainer;
-import com.ngti.leandro.lol.allMatches.AllMatches;
-import com.ngti.leandro.lol.allMatches.AllMatchesResponse;
-import com.ngti.leandro.lol.summoner.search.SummonerData;
+import com.ngti.leandro.lol.model.match.MatchContainer;
+import com.ngti.leandro.lol.model.RequestInterface;
+import com.ngti.leandro.lol.model.RetrofitClientInstance;
+import com.ngti.leandro.lol.model.matchlist.AllMatches;
+import com.ngti.leandro.lol.model.matchlist.AllMatchesResponse;
+import com.ngti.leandro.lol.model.champions.Champion;
+import com.ngti.leandro.lol.model.champions.ChampionsContainer;
+import com.ngti.leandro.lol.model.summoner.SummonerData;
+import com.ngti.leandro.lol.recentmatches.ChampionsAndMatches;
+import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -32,24 +35,15 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
     @Override
     protected ChampionsAndMatches doInBackground(String... params) {
 
+
         long accountId = 0;
 
 
         RequestInterface service = RetrofitClientInstance.getRetrofitInstance(params[0]).create(RequestInterface.class);
 
-
-
-
-
-//        sleep();
-
-
-
-
-
         Call<ChampionsContainer> loadChampionsCall = service.getChampionList();
 
-        Map<Integer, Champions> allChampions = null;
+        Map<Integer, Champion> allChampions = null;
         try {
             Response<ChampionsContainer> responseChampions = loadChampionsCall.execute();
             ChampionsContainer champions = responseChampions.body();
@@ -62,23 +56,12 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
                 }
             } else {
                 Log.e("API", "API ERROR");
+                Log.e("API", String.valueOf("API Error: "+ responseChampions.code()));
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
-//        sleep();
-
-
-
-
-
 
         Call<SummonerData> summonerDataCall = service.getSummonerByName(params[1]);
 
@@ -89,26 +72,11 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
                 accountId = responseSummonerData.body().getAccountId();
             } else {
                 Log.e("API", "API ERROR");
+                Log.e("API", String.valueOf("API Error: "+ responseSummonerData.code()));
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
-//        sleep();
-
-
-
-
-
-
-
-
 
         Call<AllMatchesResponse.JSONResponse> loadMatchList = service.loadMatchList(accountId);
 
@@ -121,72 +89,35 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
                 allMatches = new ArrayList<>(Arrays.asList(jsonResponse.getMatches()));
             } else {
                 Log.e("API", "API ERROR");
+                Log.e("API", String.valueOf("API Error: "+ response.code()));
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        final int matchCount = allMatches.size();
 
+        Map<Long, MatchContainer> matchesInfo = new HashMap<>(matchCount);
 
-
-        System.out.println(allMatches.size());
-        for (int i = 0; i < allMatches.size(); i++) {
+        for (int i = 0; i < matchCount; i++) {
             long gameId = allMatches.get(i).getGameId();
-            System.out.println(allMatches.get(i).getGameId());
 
-            Call<MatchGeneral> loadMatchById = service.loadMatchById(gameId);
+            Call<MatchContainer> loadMatchById = service.loadMatchById(gameId);
 
             try {
-                Response<MatchGeneral> response = loadMatchById.execute();
-                System.out.println(response.toString());
-                System.out.println(response.body().toString());
+                Response<MatchContainer> response = loadMatchById.execute();
+                MatchContainer match = response.body();
+                matchesInfo.put(match.getGameId(), match);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        return new ChampionsAndMatches(allChampions, allMatches);
-
-
-
-
-
-
-
-
-
-
-
-
+        return new ChampionsAndMatches(allChampions, allMatches, matchesInfo);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private void sleep() {
         try {
@@ -198,7 +129,7 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
 
     @Override
     protected void onPostExecute(ChampionsAndMatches championsAndMatches) {
-       recentMatchesActivity.matchesAndChampionsLoaded(championsAndMatches);
+        recentMatchesActivity.matchesAndChampionsLoaded(championsAndMatches);
     }
 
 

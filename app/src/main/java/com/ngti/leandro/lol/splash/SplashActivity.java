@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ngti.leandro.lol.R;
-import com.ngti.leandro.lol.summoner.search.SummonerSearchActivity;
+import com.ngti.leandro.lol.search.SummonerServerSearchActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,15 +18,19 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        new GetGameVersion(this).execute();
+        new GetSpells(this).execute();
+
         buttonAddSummonerName = findViewById(R.id.addSummonerButton);
 
         buttonAddSummonerName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SplashActivity.this, SummonerSearchActivity.class);
+                Intent intent = new Intent(SplashActivity.this, SummonerServerSearchActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 
 

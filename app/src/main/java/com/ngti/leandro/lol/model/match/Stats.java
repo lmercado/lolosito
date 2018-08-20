@@ -1,17 +1,9 @@
-package com.ngti.leandro.lol.Match;
+package com.ngti.leandro.lol.model.match;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Stats {
-
-    @Expose
-    @SerializedName("participantId")
-    private int participantId;
-
-    @Expose
-    @SerializedName("win")
-    private boolean win;
 
     @Expose
     @SerializedName("kills")
@@ -136,14 +128,6 @@ public class Stats {
     @Expose
     @SerializedName("perkSubStyle")
     private int perkSubStyle;
-
-    public int getParticipantId() {
-        return participantId;
-    }
-
-    public boolean isWin() {
-        return win;
-    }
 
     public int getKills() {
         return kills;
@@ -272,9 +256,7 @@ public class Stats {
     @Override
     public String toString() {
         return "Stats{" +
-                "participantId=" + participantId +
-                ", win=" + win +
-                ", kills=" + kills +
+                "kills=" + kills +
                 ", deaths=" + deaths +
                 ", assists=" + assists +
                 ", champLevel=" + champLevel +

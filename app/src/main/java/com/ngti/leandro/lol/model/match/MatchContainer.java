@@ -1,11 +1,11 @@
-package com.ngti.leandro.lol.Match;
+package com.ngti.leandro.lol.model.match;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
 
-public class MatchGeneral {
+public class MatchContainer {
 
     @Expose
     @SerializedName("gameId")
@@ -29,7 +29,7 @@ public class MatchGeneral {
 
     @Expose
     @SerializedName("teams")
-    private Teams[] teams;
+    private Team[] teams;
 
     @Expose
     @SerializedName("participants")
@@ -51,7 +51,7 @@ public class MatchGeneral {
         return participantIdentities;
     }
 
-    public Teams[] getTeams() {
+    public Team[] getTeams() {
         return teams;
     }
 
@@ -65,7 +65,7 @@ public class MatchGeneral {
 
     @Override
     public String toString() {
-        return "MatchGeneral{" +
+        return "MatchContainer{" +
                 "gameId=" + gameId +
                 ", gameDuration='" + gameDuration + '\'' +
                 ", gameCreation='" + gameCreation + '\'' +

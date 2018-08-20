@@ -1,4 +1,4 @@
-package com.ngti.leandro.lol.allMatches;
+package com.ngti.leandro.lol.model.matchlist;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -72,4 +72,5 @@ public class AllMatches {
                 ", season=" + season +
                 '}';
     }
+
 }

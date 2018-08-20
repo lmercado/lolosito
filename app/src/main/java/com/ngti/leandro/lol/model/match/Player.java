@@ -1,4 +1,4 @@
-package com.ngti.leandro.lol.Match;
+package com.ngti.leandro.lol.model.match;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

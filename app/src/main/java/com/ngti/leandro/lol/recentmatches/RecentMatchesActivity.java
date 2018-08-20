@@ -1,4 +1,4 @@
-package com.ngti.leandro.lol.recent.matches;
+package com.ngti.leandro.lol.recentmatches;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.ngti.leandro.lol.DataAdapter;
 import com.ngti.leandro.lol.R;
 
@@ -17,7 +16,7 @@ public class RecentMatchesActivity extends AppCompatActivity {
     private DataAdapter adapter;
     private ProgressBar progressBarRecentMatches;
     private String server;
-    private String summoner;
+    public static String summoner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +24,13 @@ public class RecentMatchesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recent_matches);
 
         server = getIntent().getStringExtra("server");
-        summoner = getIntent().getStringExtra("summoner");
+        summoner = getIntent().getStringExtra("summoner").toLowerCase();
 
         try {
             initViews();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     private void initViews() throws InterruptedException {

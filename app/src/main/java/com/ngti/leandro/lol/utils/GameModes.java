@@ -50,6 +50,8 @@ public class GameModes {
                 return "Valoran City Park";
             case 1000:
                 return "Overcharge";
+            case 1200:
+                return "Nexus Blitz";
             default:
                 return null;
 

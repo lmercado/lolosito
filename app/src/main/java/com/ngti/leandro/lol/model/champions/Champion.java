@@ -21,19 +21,19 @@ public class Champion {
     @SerializedName("name")
     private String name;
 
-    public String getTitle() {
+    public String getChampionTitle() {
         return title;
     }
 
-    public int getId() {
+    public int getChampionId() {
         return id;
     }
 
-    public String getKey() {
+    public String getChampionKey() {
         return key;
     }
 
-    public String getName() {
+    public String getChampionName() {
         return name;
     }
 

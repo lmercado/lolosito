@@ -9,25 +9,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.ngti.leandro.lol.model.match.Participants;
-import com.ngti.leandro.lol.model.match.Team;
-import com.ngti.leandro.lol.model.match.MatchContainer;
-import com.ngti.leandro.lol.utils.MatchStats;
-import com.ngti.leandro.lol.model.match.ParticipantsIdentities;
 import com.ngti.leandro.lol.model.champions.Champion;
+import com.ngti.leandro.lol.model.match.MatchContainer;
+import com.ngti.leandro.lol.model.match.Participants;
+import com.ngti.leandro.lol.model.match.ParticipantsIdentities;
+import com.ngti.leandro.lol.model.match.Team;
 import com.ngti.leandro.lol.model.matchlist.AllMatches;
 import com.ngti.leandro.lol.recentmatches.ChampionsAndMatches;
+import com.ngti.leandro.lol.utils.MatchStats;
 
 import java.util.Map;
 
 import static com.ngti.leandro.lol.recentmatches.RecentMatchesActivity.summoner;
+import static com.ngti.leandro.lol.recentmatches.SummonerMatchStats.loadUrlIntoHolder;
+import static com.ngti.leandro.lol.recentmatches.SummonerMatchStats.setTextIntoHolder;
 import static com.ngti.leandro.lol.splash.GetSpells.allSpells;
+import static com.ngti.leandro.lol.utils.GameModes.getMatchModeByQueueId;
 import static com.ngti.leandro.lol.utils.Icons.getChampionIconUrl;
-import static com.ngti.leandro.lol.utils.Icons.getDefaultItemIconUrl;
 import static com.ngti.leandro.lol.utils.Icons.getItemIconUrl;
 import static com.ngti.leandro.lol.utils.Icons.getSummonerSpellUrl;
-import static com.ngti.leandro.lol.utils.GameModes.getMatchModeByQueueId;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
@@ -85,24 +85,22 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         int summonerPerkPrimaryStyle;
         int summonerPerkSubStyle;
 
-
         AllMatches allMatches = championsAndMatches.getAllMatches(position);
-
 
         long matchId = championsAndMatches.getAllMatches(position).getGameId();
 
         MatchContainer matchInfo = championsAndMatches.getMatchGeneral(matchId);
 
         for (Map.Entry<Integer, Champion> entry : championsAndMatches.entrySet()) {
-            Integer key = (Integer) entry.getKey();
-
+            Integer key = entry.getKey();
 
 
             if (allMatches.getChampion().equals(key)) {
-                championName = entry.getValue().getKey();
-                Glide.with(context).load(getChampionIconUrl(championName)).into(holder.iv_champion_icon);
-                holder.tv_champion_name.setText(entry.getValue().getName());
-                holder.tv_game_type.setText(getMatchModeByQueueId(allMatches.getQueue()));
+                championName = entry.getValue().getChampionKey();
+
+                loadUrlIntoHolder(getChampionIconUrl(championName), holder.iv_champion_icon, context);
+                setTextIntoHolder(entry.getValue().getChampionName(), holder.tv_champion_name);
+                setTextIntoHolder(getMatchModeByQueueId(allMatches.getQueue()), holder.tv_game_type);
 
                 ParticipantsIdentities[] participantIdentities = matchInfo.getParticipantIdentities();
 
@@ -111,7 +109,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                         summonerParticipantId = participantIdentity.getParticipantId();
                     }
                 }
-
 
                 Participants[] participants = matchInfo.getParticipants();
 
@@ -157,7 +154,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
                 Team[] teams = matchInfo.getTeams();
 
-
                 for (Team team : teams) {
                     if (team.getTeamId() == summonerTeamId) {
                         summonerWin = team.getWin();
@@ -165,57 +161,20 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                     }
                 }
 
-                holder.tv_champion_final_level.setText("Level " + summonerChampLevel);
-                holder.tv_kill_death_assists.setText(new StringBuilder().append(summonerKills).append("/").append(summonerDeaths).append("/").append(summonerAssists).toString());
-                holder.tv_champion_cs.setText(String.valueOf(summonerTotalMinionsKilled + " CS"));
+                setTextIntoHolder("Level " + summonerChampLevel, holder.tv_champion_final_level);
+                setTextIntoHolder(String.valueOf(summonerKills) + "/" + summonerDeaths + "/" + summonerAssists, holder.tv_kill_death_assists);
+                setTextIntoHolder((String.valueOf(summonerTotalMinionsKilled + " CS")), holder.tv_champion_cs);
+                setTextIntoHolder(MatchStats.calculateMatchKda(summonerKills, summonerDeaths, summonerAssists) + " KDA", holder.tv_kda);
 
-
-
-                if (summonerItem0 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem0)).into(holder.iv_champion_item0);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item0);
-                }
-
-                if (summonerItem1 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem1)).into(holder.iv_champion_item1);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item1);
-
-                }
-
-                if (summonerItem2 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem2)).into(holder.iv_champion_item2);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item2);
-
-                }
-
-                if (summonerItem3 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem3)).into(holder.iv_champion_item3);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item3);
-                }
-
-                if (summonerItem4 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem4)).into(holder.iv_champion_item4);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item4);
-                }
-
-                if (summonerItem5 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem5)).into(holder.iv_champion_item5);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item5);
-                }
-
-                if (summonerItem6 != 0) {
-                    Glide.with(context).load(getItemIconUrl(summonerItem6)).into(holder.iv_champion_item6);
-                } else {
-                    Glide.with(context).load(getDefaultItemIconUrl()).into(holder.iv_champion_item6);
-                }
-
-                holder.tv_kda.setText(MatchStats.calculateMatchKda(summonerKills, summonerDeaths, summonerAssists) + " KDA");
+                loadUrlIntoHolder(getItemIconUrl(summonerItem0), holder.iv_champion_item0, context);
+                loadUrlIntoHolder(getItemIconUrl(summonerItem1), holder.iv_champion_item1, context);
+                loadUrlIntoHolder(getItemIconUrl(summonerItem2), holder.iv_champion_item2, context);
+                loadUrlIntoHolder(getItemIconUrl(summonerItem3), holder.iv_champion_item3, context);
+                loadUrlIntoHolder(getItemIconUrl(summonerItem4), holder.iv_champion_item4, context);
+                loadUrlIntoHolder(getItemIconUrl(summonerItem5), holder.iv_champion_item5, context);
+                loadUrlIntoHolder(getItemIconUrl(summonerItem6), holder.iv_champion_item6, context);
+                loadUrlIntoHolder(getSummonerSpellUrl(allSpells.get(summonerSpellId1).getId()), holder.iv_champion_spell_1, context);
+                loadUrlIntoHolder(getSummonerSpellUrl(allSpells.get(summonerSpellId2).getId()), holder.iv_champion_spell_2, context);
 
                 if (summonerWin.equals("Win")) {
                     holder.itemView.setBackgroundColor(Color.parseColor("#A2CFEC"));
@@ -223,15 +182,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                     holder.itemView.setBackgroundColor(Color.parseColor("#E3B9B3"));
                 }
 
-                Glide.with(context).load(getSummonerSpellUrl(allSpells.get(summonerSpellId1).getId())).into(holder.iv_champion_spell_1);
-                Glide.with(context).load(getSummonerSpellUrl(allSpells.get(summonerSpellId2).getId())).into(holder.iv_champion_spell_2);
-
                 break;
             }
         }
     }
-
-
 
     public void setData(ChampionsAndMatches championsAndMatches) {
         this.championsAndMatches = championsAndMatches;
@@ -247,7 +201,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_champion_name;
+        public TextView tv_champion_name;
         private TextView tv_game_type;
         private ImageView iv_champion_icon;
         private ImageView iv_champion_spell_1;
@@ -264,24 +218,24 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         private ImageView iv_champion_item5;
         private ImageView iv_champion_item6;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            tv_champion_name = (TextView) itemView.findViewById(R.id.tv_champion_name);
-            tv_game_type = (TextView) itemView.findViewById(R.id.tv_game_type);
-            iv_champion_icon = (ImageView) itemView.findViewById(R.id.iv_champion_icon);
-            iv_champion_spell_1 = (ImageView) itemView.findViewById(R.id.iv_champion_spell_1);
-            iv_champion_spell_2 = (ImageView) itemView.findViewById(R.id.iv_champion_spell_2);
-            tv_kill_death_assists = (TextView) itemView.findViewById(R.id.tv_kill_death_assists);
-            tv_kda = (TextView) itemView.findViewById(R.id.tv_kda);
-            tv_champion_final_level = (TextView) itemView.findViewById(R.id.tv_champion_final_level);
-            tv_champion_cs = (TextView) itemView.findViewById(R.id.tv_champion_cs);
-            iv_champion_item0 = (ImageView) itemView.findViewById(R.id.iv_champion_item0);
-            iv_champion_item1 = (ImageView) itemView.findViewById(R.id.iv_champion_item1);
-            iv_champion_item2 = (ImageView) itemView.findViewById(R.id.iv_champion_item2);
-            iv_champion_item3 = (ImageView) itemView.findViewById(R.id.iv_champion_item3);
-            iv_champion_item4 = (ImageView) itemView.findViewById(R.id.iv_champion_item4);
-            iv_champion_item5 = (ImageView) itemView.findViewById(R.id.iv_champion_item5);
-            iv_champion_item6 = (ImageView) itemView.findViewById(R.id.iv_champion_item6);
+            tv_champion_name = itemView.findViewById(R.id.tv_champion_name);
+            tv_game_type = itemView.findViewById(R.id.tv_game_type);
+            iv_champion_icon = itemView.findViewById(R.id.iv_champion_icon);
+            iv_champion_spell_1 = itemView.findViewById(R.id.iv_champion_spell_1);
+            iv_champion_spell_2 = itemView.findViewById(R.id.iv_champion_spell_2);
+            tv_kill_death_assists = itemView.findViewById(R.id.tv_kill_death_assists);
+            tv_kda = itemView.findViewById(R.id.tv_kda);
+            tv_champion_final_level = itemView.findViewById(R.id.tv_champion_final_level);
+            tv_champion_cs = itemView.findViewById(R.id.tv_champion_cs);
+            iv_champion_item0 = itemView.findViewById(R.id.iv_champion_item0);
+            iv_champion_item1 = itemView.findViewById(R.id.iv_champion_item1);
+            iv_champion_item2 = itemView.findViewById(R.id.iv_champion_item2);
+            iv_champion_item3 = itemView.findViewById(R.id.iv_champion_item3);
+            iv_champion_item4 = itemView.findViewById(R.id.iv_champion_item4);
+            iv_champion_item5 = itemView.findViewById(R.id.iv_champion_item5);
+            iv_champion_item6 = itemView.findViewById(R.id.iv_champion_item6);
         }
     }
 }

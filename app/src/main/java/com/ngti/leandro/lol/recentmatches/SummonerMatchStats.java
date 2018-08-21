@@ -68,8 +68,6 @@ public class SummonerMatchStats {
 
     public static void setTextIntoHolder(String text, TextView holderId) {
         holderId.setText(text);
-//        TextView textView = (TextView) itemView.findViewById(id);
-//        textView.setText(text);
     }
 
 

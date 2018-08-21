@@ -173,8 +173,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 loadUrlIntoHolder(getItemIconUrl(summonerItem4), holder.iv_champion_item4, context);
                 loadUrlIntoHolder(getItemIconUrl(summonerItem5), holder.iv_champion_item5, context);
                 loadUrlIntoHolder(getItemIconUrl(summonerItem6), holder.iv_champion_item6, context);
-                loadUrlIntoHolder(getSummonerSpellUrl(allSpells.get(summonerSpellId1).getId()), holder.iv_champion_spell_1, context);
-                loadUrlIntoHolder(getSummonerSpellUrl(allSpells.get(summonerSpellId2).getId()), holder.iv_champion_spell_2, context);
+
+                if (allSpells != null) {
+                    loadUrlIntoHolder(getSummonerSpellUrl(allSpells.get(summonerSpellId1).getId()), holder.iv_champion_spell_1, context);
+                    loadUrlIntoHolder(getSummonerSpellUrl(allSpells.get(summonerSpellId2).getId()), holder.iv_champion_spell_2, context);
+                }
+
 
                 if (summonerWin.equals("Win")) {
                     holder.itemView.setBackgroundColor(Color.parseColor("#A2CFEC"));

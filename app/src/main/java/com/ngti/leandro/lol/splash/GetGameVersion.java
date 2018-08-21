@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.ngti.leandro.lol.model.RequestInterface;
 import com.ngti.leandro.lol.model.ddragon.VersionsContainer;
-import com.ngti.leandro.lol.splash.SplashActivity;
 
 import java.io.IOException;
 
@@ -13,7 +12,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class GetGameVersion extends AsyncTask {
+public class GetGameVersion extends AsyncTask<Integer, Void, Integer> {
 
     private SplashActivity splashActivity;
     private static Retrofit retrofit;
@@ -34,7 +33,7 @@ public class GetGameVersion extends AsyncTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Integer doInBackground(Integer... params) {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -45,8 +44,9 @@ public class GetGameVersion extends AsyncTask {
 
         Call<VersionsContainer> getApiVersions = service.getDdragonApiVersions();
 
+        Response<VersionsContainer> responseApiVersions = null;
         try {
-            Response<VersionsContainer> responseApiVersions = getApiVersions.execute();
+            responseApiVersions = getApiVersions.execute();
             DDRAGON_ITEM_VERSION = responseApiVersions.body().allVersions().getItem();
             DDRAGON_RUNE_VERSION = responseApiVersions.body().allVersions().getRune();
             DDRAGON_MASTERY_VERSION = responseApiVersions.body().allVersions().getMastery();
@@ -55,12 +55,14 @@ public class GetGameVersion extends AsyncTask {
             DDRAGON_PROFILE_ICON_VERSION = responseApiVersions.body().allVersions().getProfileicon();
             DDRAGON_MAP_VERSION = responseApiVersions.body().allVersions().getMap();
             DDRAGON_LANGUAGE_VERSION = responseApiVersions.body().allVersions().getLanguage();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return responseApiVersions.code();
     }
 
-
+    @Override
+    protected void onPostExecute(Integer apiResponseCode) {
+        splashActivity.apiVersionsLoaded(apiResponseCode);
+    }
 }

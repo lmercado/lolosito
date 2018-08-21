@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -55,14 +54,24 @@ public class RecentMatchesActivity extends AppCompatActivity {
         if (response == HttpURLConnection.HTTP_OK) {
             adapter.setData(champions);
         } else {
-            Toast.makeText(context, "API error: " + response, Toast.LENGTH_LONG).show();
-            finish();
+            if (response != 0 ) {
+                Toast.makeText(context, "API Error. Try again later", Toast.LENGTH_LONG).show();
+                finish();
+            }
+
         }
-
     }
 
-    public void matchesLoaded(Matches matches) {
-        adapter.setData(matches);
+    public void matchesLoaded(Matches matches, Integer responseSummoner, Integer responseMatches, Integer responseByMatchId) {
+        if (responseByMatchId == HttpURLConnection.HTTP_OK && responseMatches == HttpURLConnection.HTTP_OK && responseSummoner == HttpURLConnection.HTTP_OK) {
+            adapter.setData(matches);
+        } else {
+            if (responseByMatchId != 0 || responseMatches != 0 || responseSummoner != 0) {
+                Toast.makeText(context, "API Error. Try again later", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
     }
+
 }
 

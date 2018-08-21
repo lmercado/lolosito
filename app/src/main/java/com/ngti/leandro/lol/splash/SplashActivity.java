@@ -12,6 +12,10 @@ import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.search.SummonerServerSearchActivity;
 import com.ngti.leandro.lol.utils.CheckNetwork;
 
+import java.net.HttpURLConnection;
+
+import timber.log.Timber;
+
 public class SplashActivity extends AppCompatActivity {
 
     private Button buttonAddSummonerName;
@@ -33,7 +37,6 @@ public class SplashActivity extends AppCompatActivity {
 
         buttonAddSummonerName = findViewById(R.id.addSummonerButton);
 
-
         buttonAddSummonerName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,13 +48,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void apiVersionsLoaded(Integer apiResponseCode) {
-        if (apiResponseCode == 200) {
-            Toast.makeText(this, "Ddragon API response code " + apiResponseCode, Toast.LENGTH_LONG).show();
-
+        if (apiResponseCode == HttpURLConnection.HTTP_OK) {
+            Timber.i("Ddragon versions loaded %s", apiResponseCode);
         } else {
             Toast.makeText(this, "Ddragon API error " + apiResponseCode, Toast.LENGTH_LONG).show();
         }
     }
-
 
 }

@@ -57,7 +57,7 @@
             android:layout_alignBottom="@+id/iv_champion_item0"
             android:layout_toEndOf="@+id/iv_champion_icon"
             android:layout_marginStart="5dp"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_spell_2"
@@ -65,7 +65,7 @@
             android:layout_height="20dp"
             android:layout_alignStart="@+id/iv_champion_spell_1"
             android:layout_marginTop="65dp"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <TextView
             android:id="@+id/tv_kill_death_assists"
@@ -120,7 +120,7 @@
             android:layout_alignTop="@+id/iv_champion_icon"
             android:layout_marginTop="-3dp"
             android:layout_marginEnd="115dp"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_item1"
@@ -130,7 +130,7 @@
             android:layout_marginStart="-112dp"
             android:layout_marginTop="-3dp"
             android:layout_toEndOf="@+id/iv_champion_item0"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_item2"
@@ -140,7 +140,7 @@
             android:layout_marginTop="-3dp"
             android:layout_alignTop="@+id/iv_champion_icon"
             android:layout_toEndOf="@+id/iv_champion_item1"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_item3"
@@ -148,7 +148,7 @@
             android:layout_height="30dp"
             android:layout_alignBottom="@+id/iv_champion_icon"
             android:layout_alignStart="@+id/iv_champion_item0"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_item4"
@@ -156,7 +156,7 @@
             android:layout_height="30dp"
             android:layout_alignBottom="@+id/iv_champion_icon"
             android:layout_alignStart="@+id/iv_champion_item1"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_item5"
@@ -164,7 +164,7 @@
             android:layout_height="30dp"
             android:layout_alignBottom="@+id/iv_champion_icon"
             android:layout_alignStart="@+id/iv_champion_item2"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_champion_item6"
@@ -173,7 +173,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
             android:layout_toEndOf="@+id/iv_champion_item2"
-            card_view:srcCompat="@android:drawable/sym_def_app_icon" />
+            android:background="@color/transpGray" />
 
 
     </RelativeLayout>

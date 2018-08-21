@@ -10,6 +10,7 @@ import com.ngti.leandro.lol.model.matchlist.AllMatchesResponse;
 import com.ngti.leandro.lol.model.summoner.SummonerData;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +23,9 @@ import timber.log.Timber;
 class LoadMatches extends AsyncTask<String, Void, Matches> {
 
     private RecentMatchesActivity recentMatchesActivity;
-
+    private int loadSummonerDataResponseCode;
+    private int loadMatchListResponseCode;
+    private int loadMatchByIdResponseCode;
 
     LoadMatches(RecentMatchesActivity recentMatchesActivity) {
         this.recentMatchesActivity = recentMatchesActivity;
@@ -35,12 +38,11 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
 
         RequestInterface service = RetrofitClientInstance.getRetrofitInstance(params[0]).create(RequestInterface.class);
 
-        int loadSummonerDataResponseCode;
         Call<SummonerData> summonerDataCall = service.getSummonerByName(params[1]);
         try {
             Response<SummonerData> responseSummonerData = summonerDataCall.execute();
             loadSummonerDataResponseCode = responseSummonerData.code();
-            if (responseSummonerData.code() == 200) {
+            if (loadSummonerDataResponseCode == HttpURLConnection.HTTP_OK) {
                 accountId = responseSummonerData.body().getAccountId();
             } else {
                 Timber.e("API Error: %s", responseSummonerData.code());
@@ -49,12 +51,12 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
             e.printStackTrace();
         }
 
-        int loadMatchListResponseCode;
         Call<AllMatchesResponse.JSONResponse> loadMatchList = service.loadMatchList(accountId);
         ArrayList<AllMatches> allMatches = null;
         try {
             Response<AllMatchesResponse.JSONResponse> responseMatchList = loadMatchList.execute();
-            if (responseMatchList.code() == 200) {
+            loadMatchListResponseCode = responseMatchList.code();
+            if (loadMatchListResponseCode == HttpURLConnection.HTTP_OK) {
                 AllMatchesResponse.JSONResponse jsonResponse = responseMatchList.body();
                 allMatches = new ArrayList<>(Arrays.asList(jsonResponse.getMatches()));
             } else {
@@ -63,7 +65,6 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         int matchCount = 0;
         if (allMatches != null) {
@@ -74,11 +75,15 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
         for (int i = 0; i < matchCount; i++) {
             long gameId = allMatches.get(i).getGameId();
             Call<MatchContainer> loadMatchById = service.loadMatchById(gameId);
+
             try {
-                Response<MatchContainer> response = loadMatchById.execute();
-                MatchContainer match = response.body();
-                if (match != null) {
-                    matchesInfo.put(match.getGameId(), match);
+                Response<MatchContainer> loadMatchByIdResponse = loadMatchById.execute();
+                loadMatchByIdResponseCode = loadMatchByIdResponse.code();
+                MatchContainer match = loadMatchByIdResponse.body();
+                if (loadMatchByIdResponseCode == HttpURLConnection.HTTP_OK) {
+                    if (match != null) {
+                        matchesInfo.put(match.getGameId(), match);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,7 +94,7 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
 
     @Override
     protected void onPostExecute(Matches matches) {
-        recentMatchesActivity.matchesLoaded(matches);
+        recentMatchesActivity.matchesLoaded(matches, loadMatchByIdResponseCode, loadMatchListResponseCode, loadSummonerDataResponseCode);
     }
 
 }

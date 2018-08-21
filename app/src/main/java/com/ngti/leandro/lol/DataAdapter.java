@@ -15,7 +15,8 @@ import com.ngti.leandro.lol.model.match.Participants;
 import com.ngti.leandro.lol.model.match.ParticipantsIdentities;
 import com.ngti.leandro.lol.model.match.Team;
 import com.ngti.leandro.lol.model.matchlist.AllMatches;
-import com.ngti.leandro.lol.recentmatches.ChampionsAndMatches;
+import com.ngti.leandro.lol.recentmatches.Champions;
+import com.ngti.leandro.lol.recentmatches.Matches;
 import com.ngti.leandro.lol.utils.MatchStats;
 
 import java.util.Map;
@@ -31,7 +32,8 @@ import static com.ngti.leandro.lol.utils.Icons.getSummonerSpellUrl;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
-    private ChampionsAndMatches championsAndMatches;
+    private Matches matches;
+    private Champions champions;
 
     public DataAdapter() {
     }
@@ -85,13 +87,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         int summonerPerkPrimaryStyle;
         int summonerPerkSubStyle;
 
-        AllMatches allMatches = championsAndMatches.getAllMatches(position);
+        AllMatches allMatches = matches.getAllMatches(position);
 
-        long matchId = championsAndMatches.getAllMatches(position).getGameId();
+        long matchId = matches.getAllMatches(position).getGameId();
 
-        MatchContainer matchInfo = championsAndMatches.getMatchGeneral(matchId);
+        MatchContainer matchInfo = matches.getMatchGeneral(matchId);
 
-        for (Map.Entry<Integer, Champion> entry : championsAndMatches.entrySet()) {
+        for (Map.Entry<Integer, Champion> entry : champions.entrySet()) {
             Integer key = entry.getKey();
 
 
@@ -191,15 +193,20 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         }
     }
 
-    public void setData(ChampionsAndMatches championsAndMatches) {
-        this.championsAndMatches = championsAndMatches;
+    public void setData(Matches matches) {
+        this.matches = matches;
+        notifyDataSetChanged();
+    }
+
+    public void setData(Champions champions) {
+        this.champions = champions;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (championsAndMatches != null) {
-            return championsAndMatches.size();
+        if (matches != null) {
+            return matches.size();
         }
         return 0;
     }

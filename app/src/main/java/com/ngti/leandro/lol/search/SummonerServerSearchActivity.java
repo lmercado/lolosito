@@ -1,6 +1,5 @@
 package com.ngti.leandro.lol.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,7 +43,7 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(CheckNetwork.isInternetAvailable(context)) //returns true if internet available
+                if (CheckNetwork.isInternetAvailable(context)) //returns true if internet available
                 {
                     Intent intent = new Intent(SummonerServerSearchActivity.this, RecentMatchesActivity.class);
                     Bundle b = new Bundle();
@@ -55,12 +54,9 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
                     intent.putExtras(b);
                     startActivity(intent);
 
+                } else {
+                    Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    Toast.makeText(context,"No Internet Connection",Toast.LENGTH_LONG).show();
-                }
-
 
             }
         });

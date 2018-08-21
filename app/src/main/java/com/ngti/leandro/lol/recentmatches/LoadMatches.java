@@ -1,12 +1,9 @@
 package com.ngti.leandro.lol.recentmatches;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.ngti.leandro.lol.model.RequestInterface;
 import com.ngti.leandro.lol.model.RetrofitClientInstance;
-import com.ngti.leandro.lol.model.champions.Champion;
-import com.ngti.leandro.lol.model.champions.ChampionsContainer;
 import com.ngti.leandro.lol.model.match.MatchContainer;
 import com.ngti.leandro.lol.model.matchlist.AllMatches;
 import com.ngti.leandro.lol.model.matchlist.AllMatchesResponse;
@@ -22,42 +19,27 @@ import retrofit2.Call;
 import retrofit2.Response;
 import timber.log.Timber;
 
-class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches> {
+class LoadMatches extends AsyncTask<String, Void, Matches> {
 
     private RecentMatchesActivity recentMatchesActivity;
 
 
-    LoadMatchAndChampions(RecentMatchesActivity recentMatchesActivity) {
+    LoadMatches(RecentMatchesActivity recentMatchesActivity) {
         this.recentMatchesActivity = recentMatchesActivity;
     }
 
     @Override
-    protected ChampionsAndMatches doInBackground(String... params) {
+    protected Matches doInBackground(String... params) {
 
         long accountId = 0;
 
         RequestInterface service = RetrofitClientInstance.getRetrofitInstance(params[0]).create(RequestInterface.class);
 
-        Call<ChampionsContainer> loadChampionsCall = service.getChampionList();
-
-        Map<Integer, Champion> allChampions = null;
-        try {
-            Response<ChampionsContainer> responseChampions = loadChampionsCall.execute();
-            ChampionsContainer champions = responseChampions.body();
-            if (responseChampions.code() == 200) {
-                if (champions != null) {
-                    allChampions = champions.getChampionsById();
-                }
-            } else {
-                Timber.e("API Error: %s", responseChampions.code());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        int loadSummonerDataResponseCode;
         Call<SummonerData> summonerDataCall = service.getSummonerByName(params[1]);
         try {
             Response<SummonerData> responseSummonerData = summonerDataCall.execute();
+            loadSummonerDataResponseCode = responseSummonerData.code();
             if (responseSummonerData.code() == 200) {
                 accountId = responseSummonerData.body().getAccountId();
             } else {
@@ -67,6 +49,7 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
             e.printStackTrace();
         }
 
+        int loadMatchListResponseCode;
         Call<AllMatchesResponse.JSONResponse> loadMatchList = service.loadMatchList(accountId);
         ArrayList<AllMatches> allMatches = null;
         try {
@@ -80,6 +63,7 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         int matchCount = 0;
         if (allMatches != null) {
@@ -100,20 +84,12 @@ class LoadMatchAndChampions extends AsyncTask<String, Void, ChampionsAndMatches>
                 e.printStackTrace();
             }
         }
-        return new ChampionsAndMatches(allChampions, allMatches, matchesInfo);
-    }
-
-    private void sleep() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        return new Matches(allMatches, matchesInfo);
     }
 
     @Override
-    protected void onPostExecute(ChampionsAndMatches championsAndMatches) {
-        recentMatchesActivity.matchesAndChampionsLoaded(championsAndMatches);
+    protected void onPostExecute(Matches matches) {
+        recentMatchesActivity.matchesLoaded(matches);
     }
 
 }

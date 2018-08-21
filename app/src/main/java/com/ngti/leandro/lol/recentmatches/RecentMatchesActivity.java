@@ -1,14 +1,18 @@
 package com.ngti.leandro.lol.recentmatches;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.ngti.leandro.lol.DataAdapter;
 import com.ngti.leandro.lol.R;
+
+import java.net.HttpURLConnection;
 
 public class RecentMatchesActivity extends AppCompatActivity {
 
@@ -17,6 +21,8 @@ public class RecentMatchesActivity extends AppCompatActivity {
     private ProgressBar progressBarRecentMatches;
     private String server;
     public static String summoner;
+    final Context context = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +46,23 @@ public class RecentMatchesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new DataAdapter();
         recyclerView.setAdapter(adapter);
-        new LoadMatchAndChampions(this).execute(server, summoner);
+
+        new LoadChampions(this).execute(server);
+        new LoadMatches(this).execute(server, summoner);
     }
 
-    public void matchesAndChampionsLoaded(ChampionsAndMatches champsAndMatches) {
-        adapter.setData(champsAndMatches);
-        progressBarRecentMatches.setVisibility(View.INVISIBLE);
+    public void championsLoaded(Champions champions, Integer response) {
+        if (response == HttpURLConnection.HTTP_OK) {
+            adapter.setData(champions);
+        } else {
+            Toast.makeText(context, "API error: " + response, Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+    }
+
+    public void matchesLoaded(Matches matches) {
+        adapter.setData(matches);
     }
 }
 

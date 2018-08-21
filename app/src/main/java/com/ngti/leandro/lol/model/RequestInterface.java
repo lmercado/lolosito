@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface RequestInterface {
 
-    String AUTHORIZATION = "X-Riot-Token: RGAPI-607369cd-6a4b-4b4b-be2c-da1e758d716b";
+    String AUTHORIZATION = "X-Riot-Token: RGAPI-7aab66f0-5960-4c87-842c-c252129386da";
 
     String MATCH_LIST_BY_ACCOUNT_ID = "/lol/match/v3/matchlists/by-account/{accountId}?endIndex=5";
     String CHAMPIONS_LIST = "/lol/static-data/v3/champions";

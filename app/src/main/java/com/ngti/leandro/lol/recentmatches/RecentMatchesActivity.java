@@ -3,7 +3,6 @@ package com.ngti.leandro.lol.recentmatches;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,7 +54,7 @@ public class RecentMatchesActivity extends AppCompatActivity {
     private void processIntent(Intent intent) {
         final Bundle extras = intent.getExtras();
 
-        if (extras!=null) {
+        if (extras != null) {
             server = extras.getString(KEY_SERVER_NAME);
             summoner = extras.getString(KEY_SUMMONER_NAME);
         }
@@ -82,7 +81,7 @@ public class RecentMatchesActivity extends AppCompatActivity {
         if (response == HttpURLConnection.HTTP_OK) {
             adapter.setData(champions);
         } else {
-            if (response != 0 ) {
+            if (response != 0) {
                 Toast.makeText(context, "API Error. Try again later", Toast.LENGTH_LONG).show();
                 finish();
             }

@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ngti.leandro.lol.R;
-import com.ngti.leandro.lol.model.RetrofitClientInstance;
 import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 import com.ngti.leandro.lol.utils.CheckNetwork;
 
@@ -29,8 +28,6 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        RetrofitClientInstance.resetInstance();
 
         final Context context = this;
 

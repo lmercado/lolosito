@@ -1,7 +1,9 @@
 package com.ngti.leandro.lol.recentmatches;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,9 @@ import java.net.HttpURLConnection;
 
 public class RecentMatchesActivity extends AppCompatActivity {
 
+    private static final String KEY_SERVER_NAME = "server";
+    private static final String KEY_SUMMONER_NAME = "summoner";
+
     private RecyclerView recyclerView;
     private DataAdapter adapter;
     private ProgressBar progressBarRecentMatches;
@@ -22,19 +27,37 @@ public class RecentMatchesActivity extends AppCompatActivity {
     public static String summoner;
     final Context context = this;
 
+    public static Intent getLaunchIntent(Context context, String serverName, String summonerName) {
+        final Intent intent = new Intent(context, RecentMatchesActivity.class);
+
+        final Bundle arguments = new Bundle(2);
+        arguments.putString(KEY_SERVER_NAME, serverName);
+        arguments.putString(KEY_SUMMONER_NAME, summonerName);
+
+        intent.putExtras(arguments);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent_matches);
 
-        server = getIntent().getStringExtra("server");
-        summoner = getIntent().getStringExtra("summoner").toLowerCase();
+        processIntent(getIntent());
 
         try {
             initViews();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void processIntent(Intent intent) {
+        final Bundle extras = intent.getExtras();
+
+        if (extras!=null) {
+            server = extras.getString(KEY_SERVER_NAME);
+            summoner = extras.getString(KEY_SUMMONER_NAME);
         }
     }
 
@@ -46,11 +69,16 @@ public class RecentMatchesActivity extends AppCompatActivity {
         adapter = new DataAdapter();
         recyclerView.setAdapter(adapter);
 
+        System.out.println(server);
+        System.out.println(summoner);
+
         new LoadChampions(this).execute(server);
         new LoadMatches(this).execute(server, summoner);
     }
 
     public void championsLoaded(Champions champions, Integer response) {
+        System.out.println("response in champions Loaded " + response);
+
         if (response == HttpURLConnection.HTTP_OK) {
             adapter.setData(champions);
         } else {
@@ -58,11 +86,15 @@ public class RecentMatchesActivity extends AppCompatActivity {
                 Toast.makeText(context, "API Error. Try again later", Toast.LENGTH_LONG).show();
                 finish();
             }
-
         }
     }
 
     public void matchesLoaded(Matches matches, Integer responseSummoner, Integer responseMatches, Integer responseByMatchId) {
+        System.out.println("response in responseSummoner " + responseSummoner);
+        System.out.println("response in responseMatches " + responseMatches);
+        System.out.println("response in responseByMatchId " + responseByMatchId);
+
+
         if (responseByMatchId == HttpURLConnection.HTTP_OK && responseMatches == HttpURLConnection.HTTP_OK && responseSummoner == HttpURLConnection.HTTP_OK) {
             adapter.setData(matches);
         } else {

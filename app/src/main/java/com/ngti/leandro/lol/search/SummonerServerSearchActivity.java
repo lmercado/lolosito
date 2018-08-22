@@ -7,14 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ngti.leandro.lol.R;
+import com.ngti.leandro.lol.model.RetrofitClientInstance;
 import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 import com.ngti.leandro.lol.utils.CheckNetwork;
 
@@ -29,12 +30,16 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        RetrofitClientInstance.resetInstance();
+
         final Context context = this;
 
         serversSpinner = findViewById(R.id.serversSpinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.servers_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         serversSpinner.setAdapter(adapter);
 
         summonerTextEditor = findViewById(R.id.summonerEditText);
@@ -63,22 +68,27 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
 
         });
 
+        serversSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Do nothing
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                if (CheckNetwork.isInternetAvailable(context)) //returns true if internet available
-                {
-                    Intent intent = new Intent(SummonerServerSearchActivity.this, RecentMatchesActivity.class);
-                    Bundle b = new Bundle();
-
-                    b.putString("server", serversSpinner.getSelectedItem().toString());
-                    b.putString("summoner", summonerTextEditor.getText().toString());
-
-                    intent.putExtras(b);
+                if (CheckNetwork.isInternetAvailable(context)) {
+                    final String serverName = serversSpinner.getSelectedItem().toString();
+                    final String summonerName = summonerTextEditor.getText().toString();
+                    final Intent intent = RecentMatchesActivity.getLaunchIntent(SummonerServerSearchActivity.this, serverName, summonerName);
                     startActivity(intent);
-
                 } else {
                     Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
                 }

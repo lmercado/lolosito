@@ -8,7 +8,11 @@ public class RetrofitClientInstance {
     private static String BASE_URL;
     private static Retrofit retrofit;
 
-    public static Retrofit getRetrofitInstance(String server) {
+    public static synchronized void resetInstance() {
+        retrofit = null;
+    }
+
+    public static synchronized Retrofit getInstance(String server) {
 
         switch (server) {
             case "BR":
@@ -49,6 +53,7 @@ public class RetrofitClientInstance {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+
         return retrofit;
     }
 }

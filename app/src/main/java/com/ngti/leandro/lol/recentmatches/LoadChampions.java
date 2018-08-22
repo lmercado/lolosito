@@ -26,7 +26,7 @@ public class LoadChampions extends AsyncTask<String, Integer, Champions> {
 
     @Override
     protected Champions doInBackground(String... params) {
-        RequestInterface service = RetrofitClientInstance.getRetrofitInstance(params[0]).create(RequestInterface.class);
+        RequestInterface service = RetrofitClientInstance.getInstance(params[0]).create(RequestInterface.class);
 
         Call<ChampionsContainer> loadChampionsCall = service.getChampionList();
 

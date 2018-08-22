@@ -13,11 +13,10 @@ public class Icons {
     }
 
     public static String getItemIconUrl(int itemId) {
-        return BASE_URL + "/" + DDRAGON_ITEM_VERSION + "/img/item/" + itemId + ".png";
-    }
-
-    public static String getDefaultItemIconUrl() {
-        return "https://vignette.wikia.nocookie.net/leagueoflegends/images/d/d5/Item.png";
+        if (itemId != 0) {
+            return BASE_URL + "/" + DDRAGON_ITEM_VERSION + "/img/item/" + itemId + ".png";
+        }
+        return null;
     }
 
     public static String getSummonerSpellUrl(String spell) {

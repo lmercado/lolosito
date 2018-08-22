@@ -8,6 +8,7 @@ import com.ngti.leandro.lol.model.champions.Champion;
 import com.ngti.leandro.lol.model.champions.ChampionsContainer;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -34,7 +35,8 @@ public class LoadChampions extends AsyncTask<String, Integer, Champions> {
             Response<ChampionsContainer> responseChampions = loadChampionsCall.execute();
             loadChampionsResponseCode = responseChampions.code();
             ChampionsContainer championsContainer = responseChampions.body();
-            if (loadChampionsResponseCode == 200) {
+            Timber.d("Response code Champions call: %s", loadChampionsResponseCode);
+            if (loadChampionsResponseCode == HttpURLConnection.HTTP_OK) {
                 if (championsContainer != null) {
                     allChampions = championsContainer.getChampionsById();
                 }

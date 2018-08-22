@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,7 +20,7 @@ import com.ngti.leandro.lol.utils.CheckNetwork;
 
 public class SummonerServerSearchActivity extends AppCompatActivity {
 
-    private Button searchButton;
+    private ImageButton searchButton;
     private Spinner serversSpinner;
     private EditText summonerTextEditor;
 
@@ -37,6 +40,28 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
         summonerTextEditor = findViewById(R.id.summonerEditText);
 
         searchButton = findViewById(R.id.searchButton);
+
+        summonerTextEditor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() == 0) {
+                    searchButton.setVisibility(View.INVISIBLE);
+                } else {
+                    searchButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do Nothing
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do Nothing
+            }
+
+        });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
 

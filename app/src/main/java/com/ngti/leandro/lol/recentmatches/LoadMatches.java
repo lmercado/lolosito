@@ -42,6 +42,7 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
         try {
             Response<SummonerData> responseSummonerData = summonerDataCall.execute();
             loadSummonerDataResponseCode = responseSummonerData.code();
+            Timber.d("Response code summoner data call: %s", loadSummonerDataResponseCode);
             if (loadSummonerDataResponseCode == HttpURLConnection.HTTP_OK) {
                 accountId = responseSummonerData.body().getAccountId();
             } else {
@@ -56,6 +57,7 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
         try {
             Response<AllMatchesResponse.JSONResponse> responseMatchList = loadMatchList.execute();
             loadMatchListResponseCode = responseMatchList.code();
+            Timber.d("Response code match list call: %s", loadMatchListResponseCode);
             if (loadMatchListResponseCode == HttpURLConnection.HTTP_OK) {
                 AllMatchesResponse.JSONResponse jsonResponse = responseMatchList.body();
                 allMatches = new ArrayList<>(Arrays.asList(jsonResponse.getMatches()));
@@ -79,6 +81,7 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
             try {
                 Response<MatchContainer> loadMatchByIdResponse = loadMatchById.execute();
                 loadMatchByIdResponseCode = loadMatchByIdResponse.code();
+                Timber.d("Response code match by id call: %s", loadMatchByIdResponseCode);
                 MatchContainer match = loadMatchByIdResponse.body();
                 if (loadMatchByIdResponseCode == HttpURLConnection.HTTP_OK) {
                     if (match != null) {

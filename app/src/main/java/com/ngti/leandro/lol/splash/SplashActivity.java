@@ -28,8 +28,10 @@ public class SplashActivity extends AppCompatActivity {
         final Context context = this;
 
         if (CheckNetwork.isInternetAvailable(context)) {
+
             new GetGameVersion(this).execute();
             new GetSpells(this).execute();
+            new GetRunes(this).execute();
 
         } else {
             Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
@@ -44,7 +46,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     public void apiVersionsLoaded(Integer apiResponseCode) {

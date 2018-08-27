@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/iv_champion_icon"
-            android:textColor="#101010"
-            android:textSize="14sp"
             android:layout_marginStart="3dp"
             android:layout_marginVertical="7dp"
+            android:textColor="#101010"
+            android:textSize="14sp"
             tools:text="Blitzcrank" />
 
         <TextView
@@ -44,8 +44,8 @@
             android:layout_height="22dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="3dp"
             android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
             android:text="TextView"
             android:textSize="14sp"
             tools:text="Summoner's Rift" />
@@ -55,8 +55,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignBottom="@+id/iv_champion_item0"
-            android:layout_toEndOf="@+id/iv_champion_icon"
             android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/iv_champion_icon"
             android:background="@color/transpGray" />
 
         <ImageView
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignTop="@+id/iv_champion_spell_1"
-            android:layout_marginStart="103dp"
+            android:layout_marginStart="133dp"
             tools:text="11/4/20" />
 
         <TextView
@@ -88,29 +88,27 @@
             android:id="@+id/tv_champion_final_level"
             android:layout_width="52dp"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_kill_death_assists"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/tv_kill_death_assists"
             android:layout_toStartOf="@+id/iv_champion_item0"
-            android:layout_alignTop="@+id/tv_kill_death_assists"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="8dp"
             android:gravity="end"
             android:textSize="12sp"
-            tools:text="Level 18"
-            />
+            tools:text="Level 18" />
 
         <TextView
             android:id="@+id/tv_champion_cs"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_kda"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/tv_kda"
             android:layout_toStartOf="@+id/iv_champion_item3"
-            android:layout_alignTop="@+id/tv_kda"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="8dp"
             android:gravity="end"
             android:textSize="12sp"
-            tools:text="145 CS"
-            />
+            tools:text="145 CS" />
 
         <ImageView
             android:id="@+id/iv_champion_item0"
@@ -118,8 +116,8 @@
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/iv_champion_icon"
-            android:layout_marginTop="-3dp"
             android:layout_marginEnd="115dp"
+            android:layout_marginTop="-3dp"
             android:background="@color/transpGray" />
 
         <ImageView
@@ -136,9 +134,9 @@
             android:id="@+id/iv_champion_item2"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_alignTop="@+id/iv_champion_icon"
             android:layout_marginStart="3dp"
             android:layout_marginTop="-3dp"
-            android:layout_alignTop="@+id/iv_champion_icon"
             android:layout_toEndOf="@+id/iv_champion_item1"
             android:background="@color/transpGray" />
 
@@ -174,6 +172,22 @@
             android:layout_marginLeft="3dp"
             android:layout_toEndOf="@+id/iv_champion_item2"
             android:background="@color/transpGray" />
+
+        <ImageView
+            android:id="@+id/iv_champion_perk_primary_style"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignEnd="@+id/tv_champion_name"
+            android:layout_alignTop="@+id/iv_champion_spell_1"
+            card_view:srcCompat="@color/transpGray" />
+
+        <ImageView
+            android:id="@+id/iv_champion_perk_secondary_style"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignStart="@+id/iv_champion_perk_primary_style"
+            android:layout_alignTop="@+id/iv_champion_spell_2"
+            card_view:srcCompat="@color/transpGray" />
 
 
     </RelativeLayout>

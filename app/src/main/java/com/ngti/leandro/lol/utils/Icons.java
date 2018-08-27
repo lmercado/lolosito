@@ -23,4 +23,21 @@ public class Icons {
         return BASE_URL + "/" + DDRAGON_SUMMONER_VERSION + "/img/spell/" + spell + ".png";
     }
 
+    public static String getPerkUrl(int perkId) {
+        switch (perkId) {
+            case 8100:
+                return BASE_URL + "/" + "img/perk-images/Styles/7200_Domination.png";
+            case 8300:
+                return BASE_URL + "/" + "img/perk-images/Styles/7203_Whimsy.png";
+            case 8000:
+                return BASE_URL + "/" + "img/perk-images/Styles/7201_Precision.png";
+            case 8400:
+                return BASE_URL + "/" + "img/perk-images/Styles/7204_Resolve.png";
+            case 8200:
+                return BASE_URL + "/" + "img/perk-images/Styles/7202_Sorcery.png";
+
+        }
+        return null;
+    }
+
 }

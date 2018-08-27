@@ -1,11 +1,14 @@
 package com.ngti.leandro.lol.model;
 
-import com.ngti.leandro.lol.model.match.MatchContainer;
 import com.ngti.leandro.lol.model.champions.ChampionsContainer;
-import com.ngti.leandro.lol.model.matchlist.AllMatchesResponse;
 import com.ngti.leandro.lol.model.ddragon.SpellsContainer;
 import com.ngti.leandro.lol.model.ddragon.VersionsContainer;
+import com.ngti.leandro.lol.model.match.MatchContainer;
+import com.ngti.leandro.lol.model.ddragon.RunesContainer;
+import com.ngti.leandro.lol.model.matchlist.AllMatchesResponse;
 import com.ngti.leandro.lol.model.summoner.SummonerData;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,14 +17,15 @@ import retrofit2.http.Path;
 
 public interface RequestInterface {
 
-    String AUTHORIZATION = "X-Riot-Token: RGAPI-acea8b45-3fb7-4b11-a02f-d5469071a7f8";
+    String AUTHORIZATION = "X-Riot-Token: XXX";
 
     String MATCH_LIST_BY_ACCOUNT_ID = "/lol/match/v3/matchlists/by-account/{accountId}?endIndex=5";
     String CHAMPIONS_LIST = "/lol/static-data/v3/champions";
     String DDRAGON_API_VERSIONS = "/realms/na.json";
     String SUMMONER_BY_NAME = "/lol/summoner/v3/summoners/by-name/{summonerName}";
     String MATCH_BY_ID = "/lol/match/v3/matches/{matchId}";
-    String DDRAGON_SUMMONER_SPELLS = "/cdn/8.16.1/data/en_US/summoner.json";
+    String DDRAGON_SUMMONER_SPELLS = "/cdn/{version}/data/en_US/summoner.json";
+    String DDRAGON_RUNES = "/cdn/{version}/data/en_US/runesReforged.json";
 
     @Headers(AUTHORIZATION)
     @GET(MATCH_LIST_BY_ACCOUNT_ID)
@@ -43,5 +47,10 @@ public interface RequestInterface {
     Call<VersionsContainer> getDdragonApiVersions();
 
     @GET(DDRAGON_SUMMONER_SPELLS)
-    Call<SpellsContainer> getSummonerSpells();
+    Call<SpellsContainer> getSummonerSpells(@Path("version") String version);
+
+    @GET(DDRAGON_RUNES)
+    Call<List<RunesContainer>> getRunes(@Path("version") String version);
+
+
 }

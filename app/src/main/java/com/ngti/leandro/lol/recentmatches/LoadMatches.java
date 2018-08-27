@@ -33,10 +33,6 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
 
     @Override
     protected Matches doInBackground(String... params) {
-
-        System.out.println(params[0]);
-        System.out.println(params[1]);
-
         long accountId = 0;
 
         RequestInterface service = RetrofitClientInstance.getInstance(params[0]).create(RequestInterface.class);
@@ -47,7 +43,6 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
             loadSummonerDataResponseCode = responseSummonerData.code();
 
             Timber.i("Response code summoner data call: %s", loadSummonerDataResponseCode);
-            System.out.println(responseSummonerData.code());
             if (loadSummonerDataResponseCode == HttpURLConnection.HTTP_OK) {
                 accountId = responseSummonerData.body().getAccountId();
             } else {
@@ -61,7 +56,6 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
         ArrayList<AllMatches> allMatches = null;
         try {
             Response<AllMatchesResponse.JSONResponse> responseMatchList = loadMatchList.execute();
-            System.out.println(responseMatchList.code());
             loadMatchListResponseCode = responseMatchList.code();
             Timber.i("Response code match list call: %s", loadMatchListResponseCode);
             if (loadMatchListResponseCode == HttpURLConnection.HTTP_OK) {
@@ -86,7 +80,6 @@ class LoadMatches extends AsyncTask<String, Void, Matches> {
 
             try {
                 Response<MatchContainer> loadMatchByIdResponse = loadMatchById.execute();
-                System.out.println(loadMatchByIdResponse.code());
                 loadMatchByIdResponseCode = loadMatchByIdResponse.code();
                 Timber.i("Response code match by id call: %s", loadMatchByIdResponseCode);
                 MatchContainer match = loadMatchByIdResponse.body();

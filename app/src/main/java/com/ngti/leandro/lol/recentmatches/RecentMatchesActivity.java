@@ -68,16 +68,11 @@ public class RecentMatchesActivity extends AppCompatActivity {
         adapter = new DataAdapter();
         recyclerView.setAdapter(adapter);
 
-        System.out.println(server);
-        System.out.println(summoner);
-
         new LoadChampions(this).execute(server);
         new LoadMatches(this).execute(server, summoner);
     }
 
     public void championsLoaded(Champions champions, Integer response) {
-        System.out.println("response in champions Loaded " + response);
-
         if (response == HttpURLConnection.HTTP_OK) {
             adapter.setData(champions);
         } else {
@@ -89,11 +84,6 @@ public class RecentMatchesActivity extends AppCompatActivity {
     }
 
     public void matchesLoaded(Matches matches, Integer responseSummoner, Integer responseMatches, Integer responseByMatchId) {
-        System.out.println("response in responseSummoner " + responseSummoner);
-        System.out.println("response in responseMatches " + responseMatches);
-        System.out.println("response in responseByMatchId " + responseByMatchId);
-
-
         if (responseByMatchId == HttpURLConnection.HTTP_OK && responseMatches == HttpURLConnection.HTTP_OK && responseSummoner == HttpURLConnection.HTTP_OK) {
             adapter.setData(matches);
         } else {

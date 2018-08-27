@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
+import com.ngti.leandro.lol.splash.GetRunes;
 import com.ngti.leandro.lol.utils.CheckNetwork;
 
 public class SummonerServerSearchActivity extends AppCompatActivity {

@@ -23,7 +23,7 @@ public class Icons {
         return BASE_URL + "/" + DDRAGON_SUMMONER_VERSION + "/img/spell/" + spell + ".png";
     }
 
-    public static String getPerkUrl(int perkId) {
+    public static String getPrimaryPerkUrl(int perkId) {
         switch (perkId) {
             case 8100:
                 return BASE_URL + "/" + "img/perk-images/Styles/7200_Domination.png";
@@ -38,6 +38,10 @@ public class Icons {
 
         }
         return null;
+    }
+
+    public static String getSecondaryPerkUrl(int perkId) {
+        return "http://opgg-static.akamaized.net/images/lol/perk/" + perkId + ".png";
     }
 
 }

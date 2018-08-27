@@ -29,7 +29,8 @@ import static com.ngti.leandro.lol.splash.GetSpells.allSpells;
 import static com.ngti.leandro.lol.utils.GameModes.getMatchModeByQueueId;
 import static com.ngti.leandro.lol.utils.Icons.getChampionIconUrl;
 import static com.ngti.leandro.lol.utils.Icons.getItemIconUrl;
-import static com.ngti.leandro.lol.utils.Icons.getPerkUrl;
+import static com.ngti.leandro.lol.utils.Icons.getPrimaryPerkUrl;
+import static com.ngti.leandro.lol.utils.Icons.getSecondaryPerkUrl;
 import static com.ngti.leandro.lol.utils.Icons.getSummonerSpellUrl;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
@@ -80,7 +81,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         long summonerTotalDamageDealt;
         long summonerTotalHeal;
         int summonerTotalMinionsKilled = 0;
-        int summonerPerk0;
+        int summonerPerk0 = 0;
         int summonerPerk1;
         int summonerPerk2;
         int summonerPerk3;
@@ -165,8 +166,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                     }
                 }
 
-
-                loadUrlIntoHolder(getPerkUrl(RunesContainer.getRuneIconById(summonerPerkPrimaryStyle)), holder.iv_champion_rune_primary_style, context);
+                loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerPerkPrimaryStyle)), holder.iv_champion_rune_primary_style, context);
+                loadUrlIntoHolder(getSecondaryPerkUrl(summonerPerk0), holder.iv_champion_rune_secondary_style, context);
 
                 setTextIntoHolder("Level " + summonerChampLevel, holder.tv_champion_final_level);
                 setTextIntoHolder(String.valueOf(summonerKills) + "/" + summonerDeaths + "/" + summonerAssists, holder.tv_kill_death_assists);

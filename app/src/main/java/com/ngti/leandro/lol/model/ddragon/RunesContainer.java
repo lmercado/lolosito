@@ -20,6 +20,10 @@ public class RunesContainer {
     @SerializedName("icon")
     private String icon;
 
+    @Expose
+    @SerializedName("slots")
+    private List<Slots> slots;
+
     public int getId() {
         return id;
     }
@@ -32,15 +36,29 @@ public class RunesContainer {
         return icon;
     }
 
+    public List<Slots> getSlots() {
+        return slots;
+    }
+
     public static int getRuneIconById(int id) {
         int runeId;
         for (RunesContainer runes : GetRunes.allRunes) {
-            if(runes.getId() == id) {
+            if (runes.getId() == id) {
                 runeId = runes.getId();
 
                 return runeId;
             }
         }
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "RunesContainer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                ", slots=" + slots +
+                '}';
     }
 }

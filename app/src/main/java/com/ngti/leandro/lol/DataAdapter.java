@@ -1,7 +1,10 @@
 package com.ngti.leandro.lol;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ngti.leandro.lol.fullmatchinfo.FullMatchInfoActivity;
 import com.ngti.leandro.lol.model.champions.Champion;
 import com.ngti.leandro.lol.model.ddragon.RunesContainer;
 import com.ngti.leandro.lol.model.match.MatchContainer;
@@ -18,6 +22,7 @@ import com.ngti.leandro.lol.model.match.Team;
 import com.ngti.leandro.lol.model.matchlist.AllMatches;
 import com.ngti.leandro.lol.recentmatches.Champions;
 import com.ngti.leandro.lol.recentmatches.Matches;
+import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 import com.ngti.leandro.lol.utils.MatchStats;
 
 import java.util.Map;
@@ -37,21 +42,34 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     private Matches matches;
     private Champions champions;
+    private View singleMatchView;
+    private RecentMatchesActivity recentMatchesActivity;
+
 
     public DataAdapter() {
     }
 
-    @Override
-    public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recent_match, parent, false);
-        parent.setBackgroundColor(Color.parseColor("#EDEDED"));
-        return new ViewHolder(view);
+    DataAdapter(RecentMatchesActivity recentMatchesActivity) {
+        this.recentMatchesActivity = recentMatchesActivity;
     }
 
     @Override
+    public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        BaseClickListener clickListener;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recent_match, parent, false);
+        parent.setBackgroundColor(Color.parseColor("#EDEDED"));
+        singleMatchView = view.findViewById(R.id.single_match_view);
+        return new ViewHolder(view);
+    }
+
+
+    @Override
     public void onBindViewHolder(DataAdapter.ViewHolder holder, int position) {
+        singleMatchView.setOnClickListener(new BaseClickListener(holder.getAdapterPosition()));
+
         Context context = holder.iv_champion_icon.getContext();
         String championName = "";
+        String championId = "";
         int summonerParticipantId = 0;
         int summonerSpellId1 = 0;
         int summonerSpellId2 = 0;
@@ -101,10 +119,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 
             if (allMatches.getChampion().equals(key)) {
-                championName = entry.getValue().getChampionKey();
+                championName = entry.getValue().getChampionName();
+                championId = entry.getValue().getChampionId();
 
-                loadUrlIntoHolder(getChampionIconUrl(championName), holder.iv_champion_icon, context);
-                setTextIntoHolder(entry.getValue().getChampionName(), holder.tv_champion_name);
+                loadUrlIntoHolder(getChampionIconUrl(championId), holder.iv_champion_icon, context);
+                setTextIntoHolder(championName, holder.tv_champion_name);
                 setTextIntoHolder(getMatchModeByQueueId(allMatches.getQueue()), holder.tv_game_type);
 
                 ParticipantsIdentities[] participantIdentities = matchInfo.getParticipantIdentities();
@@ -239,6 +258,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
+
             tv_champion_name = itemView.findViewById(R.id.tv_champion_name);
             tv_game_type = itemView.findViewById(R.id.tv_game_type);
             iv_champion_icon = itemView.findViewById(R.id.iv_champion_icon);
@@ -259,4 +279,26 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             iv_champion_rune_secondary_style = itemView.findViewById(R.id.iv_champion_perk_secondary_style);
         }
     }
+
+    private class BaseClickListener implements View.OnClickListener {
+
+        final int mPosition;
+
+        public BaseClickListener(final int position) {
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(final View view) {
+            Intent intent = new Intent(recentMatchesActivity, FullMatchInfoActivity.class);
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle mBundle = new Bundle();
+            mBundle.putString("pepe", "2");
+            ContextCompat.startActivity(recentMatchesActivity, intent, mBundle);
+        }
+
+    }
+
+
 }

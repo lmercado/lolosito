@@ -15,7 +15,7 @@ public class ChampionsContainer {
 
         for (Map.Entry<String, Champion> entry : getChampions().entrySet()) {
             final Champion champions = entry.getValue();
-            championsById.put(champions.getChampionId(), champions);
+            championsById.put(Integer.valueOf(champions.getChampionKey()), champions);
         }
 
         return championsById;

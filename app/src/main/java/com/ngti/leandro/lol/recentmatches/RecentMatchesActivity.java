@@ -70,7 +70,9 @@ public class RecentMatchesActivity extends AppCompatActivity {
 
         new LoadChampions(this).execute(server);
         new LoadMatches(this).execute(server, summoner);
+
     }
+
 
     public void championsLoaded(Champions champions, Integer response) {
         if (response == HttpURLConnection.HTTP_OK) {
@@ -93,6 +95,7 @@ public class RecentMatchesActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }
 

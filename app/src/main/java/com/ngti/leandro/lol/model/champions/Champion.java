@@ -11,39 +11,37 @@ public class Champion {
 
     @Expose
     @SerializedName("id")
-    private int id;
+    private String id;
+
+    @Expose
+    @SerializedName("name")
+    private String name;
 
     @Expose
     @SerializedName("key")
     private String key;
 
     @Expose
-    @SerializedName("name")
-    private String name;
+    @SerializedName("blurb")
+    private String blurb;
 
     public String getChampionTitle() {
         return title;
     }
 
-    public int getChampionId() {
+    public String getChampionId() {
         return id;
-    }
-
-    public String getChampionKey() {
-        return key;
     }
 
     public String getChampionName() {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "Champion{" +
-                "title='" + title + '\'' +
-                ", id=" + id +
-                ", key='" + key + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public String getChampionBlurb() {
+        return blurb;
+    }
+
+    public String getChampionKey() {
+        return key;
     }
 }

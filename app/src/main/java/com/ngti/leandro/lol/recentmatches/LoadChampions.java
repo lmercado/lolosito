@@ -3,7 +3,6 @@ package com.ngti.leandro.lol.recentmatches;
 import android.os.AsyncTask;
 
 import com.ngti.leandro.lol.model.RequestInterface;
-import com.ngti.leandro.lol.model.RetrofitClientInstance;
 import com.ngti.leandro.lol.model.champions.Champion;
 import com.ngti.leandro.lol.model.champions.ChampionsContainer;
 
@@ -13,12 +12,19 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
+
+import static com.ngti.leandro.lol.splash.GetGameVersion.DDRAGON_CHAMPION_VERSION;
 
 public class LoadChampions extends AsyncTask<String, Integer, Champions> {
 
     private RecentMatchesActivity recentMatchesActivity;
     private int loadChampionsResponseCode;
+
+    private static Retrofit retrofit;
+    private static String BASE_URL = "https://ddragon.leagueoflegends.com";
 
     LoadChampions(RecentMatchesActivity recentMatchesActivity) {
         this.recentMatchesActivity = recentMatchesActivity;
@@ -26,9 +32,17 @@ public class LoadChampions extends AsyncTask<String, Integer, Champions> {
 
     @Override
     protected Champions doInBackground(String... params) {
-        RequestInterface service = RetrofitClientInstance.getInstance(params[0]).create(RequestInterface.class);
+        if (retrofit == null) {
+            retrofit = new retrofit2.Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        RequestInterface service = retrofit.create(RequestInterface.class);
 
-        Call<ChampionsContainer> loadChampionsCall = service.getChampionList();
+        Call<ChampionsContainer> loadChampionsCall = service.getChampionList(DDRAGON_CHAMPION_VERSION);
+
+//        System.out.println(loadChampionsCall.request());
 
         Map<Integer, Champion> allChampions = null;
         try {

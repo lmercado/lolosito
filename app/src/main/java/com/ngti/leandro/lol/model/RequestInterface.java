@@ -17,10 +17,10 @@ import retrofit2.http.Path;
 
 public interface RequestInterface {
 
-    String AUTHORIZATION = "X-Riot-Token: RGAPI-169cdb29-fae9-4fcd-a193-d843dc85ef18";
+    String AUTHORIZATION = "X-Riot-Token: XXX";
 
     String MATCH_LIST_BY_ACCOUNT_ID = "/lol/match/v3/matchlists/by-account/{accountId}?endIndex=5";
-    String CHAMPIONS_LIST = "/lol/static-data/v3/champions";
+    String CHAMPIONS_LIST = "/cdn/{version}/data/en_US/champion.json";
     String DDRAGON_API_VERSIONS = "/realms/na.json";
     String SUMMONER_BY_NAME = "/lol/summoner/v3/summoners/by-name/{summonerName}";
     String MATCH_BY_ID = "/lol/match/v3/matches/{matchId}";
@@ -33,7 +33,7 @@ public interface RequestInterface {
 
     @Headers(AUTHORIZATION)
     @GET(CHAMPIONS_LIST)
-    Call<ChampionsContainer> getChampionList();
+    Call<ChampionsContainer> getChampionList(@Path("version") String version);
 
     @Headers(AUTHORIZATION)
     @GET(SUMMONER_BY_NAME)

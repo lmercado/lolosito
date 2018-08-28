@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
-import com.ngti.leandro.lol.splash.GetRunes;
 import com.ngti.leandro.lol.utils.CheckNetwork;
 
 public class SummonerServerSearchActivity extends AppCompatActivity {
@@ -83,16 +82,24 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (CheckNetwork.isInternetAvailable(context)) {
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     final String serverName = serversSpinner.getSelectedItem().toString();
                     final String summonerName = summonerTextEditor.getText().toString();
                     final Intent intent = RecentMatchesActivity.getLaunchIntent(SummonerServerSearchActivity.this, serverName, summonerName);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 } else {
                     Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 }

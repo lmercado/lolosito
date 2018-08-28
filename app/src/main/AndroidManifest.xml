@@ -32,11 +32,13 @@
             />
 
         <activity android:name=".recentmatches.RecentMatchesActivity"
+            android:label=""
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             />
 
         <activity android:name=".fullmatchinfo.FullMatchInfoActivity"
+            android:label=""
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             />

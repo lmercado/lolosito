@@ -42,8 +42,6 @@ public class LoadChampions extends AsyncTask<String, Integer, Champions> {
 
         Call<ChampionsContainer> loadChampionsCall = service.getChampionList(DDRAGON_CHAMPION_VERSION);
 
-//        System.out.println(loadChampionsCall.request());
-
         Map<Integer, Champion> allChampions = null;
         try {
             Response<ChampionsContainer> responseChampions = loadChampionsCall.execute();

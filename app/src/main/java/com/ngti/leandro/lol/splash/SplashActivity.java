@@ -44,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SplashActivity.this, SummonerServerSearchActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
@@ -55,5 +56,6 @@ public class SplashActivity extends AppCompatActivity {
             Toast.makeText(this, "Ddragon API error " + apiResponseCode, Toast.LENGTH_LONG).show();
         }
     }
+
 
 }

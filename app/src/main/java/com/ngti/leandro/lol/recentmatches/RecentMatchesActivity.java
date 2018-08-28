@@ -11,10 +11,15 @@ import android.widget.Toast;
 
 import com.ngti.leandro.lol.DataAdapter;
 import com.ngti.leandro.lol.R;
+import com.ngti.leandro.lol.fullmatchinfo.FullMatchInfoActivity;
+import com.ngti.leandro.lol.model.matchlist.AllMatches;
+import com.ngti.leandro.lol.search.SummonerServerSearchActivity;
 
 import java.net.HttpURLConnection;
 
-public class RecentMatchesActivity extends AppCompatActivity {
+import timber.log.Timber;
+
+public class RecentMatchesActivity extends AppCompatActivity implements DataAdapter.Callback {
 
     private static final String KEY_SERVER_NAME = "server";
     private static final String KEY_SUMMONER_NAME = "summoner";
@@ -49,6 +54,15 @@ public class RecentMatchesActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void onMatchClicked(AllMatches match) {
+        String matchId = String.valueOf(match.getGameId());
+        final Intent intent = FullMatchInfoActivity.getLaunchIntent(RecentMatchesActivity.this, KEY_SERVER_NAME, KEY_SUMMONER_NAME, matchId);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void processIntent(Intent intent) {
@@ -65,7 +79,7 @@ public class RecentMatchesActivity extends AppCompatActivity {
         progressBarRecentMatches = findViewById(R.id.progressBarRecentMatches);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new DataAdapter();
+        adapter = new DataAdapter(this);
         recyclerView.setAdapter(adapter);
 
         new LoadChampions(this).execute(server);
@@ -94,6 +108,12 @@ public class RecentMatchesActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 

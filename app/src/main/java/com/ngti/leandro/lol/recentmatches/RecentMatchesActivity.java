@@ -9,23 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.ngti.leandro.lol.DataAdapter;
 import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.fullmatchinfo.FullMatchInfoActivity;
 import com.ngti.leandro.lol.model.matchlist.AllMatches;
-import com.ngti.leandro.lol.search.SummonerServerSearchActivity;
 
 import java.net.HttpURLConnection;
 
-import timber.log.Timber;
-
-public class RecentMatchesActivity extends AppCompatActivity implements DataAdapter.Callback {
+public class RecentMatchesActivity extends AppCompatActivity implements MatchesDataAdapter.Callback {
 
     private static final String KEY_SERVER_NAME = "server";
     private static final String KEY_SUMMONER_NAME = "summoner";
 
     private RecyclerView recyclerView;
-    private DataAdapter adapter;
+    private MatchesDataAdapter adapter;
     private ProgressBar progressBarRecentMatches;
     private String server;
     public static String summoner;
@@ -59,8 +55,8 @@ public class RecentMatchesActivity extends AppCompatActivity implements DataAdap
 
     @Override
     public void onMatchClicked(AllMatches match) {
-        String matchId = String.valueOf(match.getGameId());
-        final Intent intent = FullMatchInfoActivity.getLaunchIntent(RecentMatchesActivity.this, KEY_SERVER_NAME, KEY_SUMMONER_NAME, matchId);
+        long matchId = match.getGameId();
+        final Intent intent = FullMatchInfoActivity.getLaunchIntent(RecentMatchesActivity.this, server, summoner, matchId);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
@@ -75,11 +71,11 @@ public class RecentMatchesActivity extends AppCompatActivity implements DataAdap
     }
 
     private void initViews() throws InterruptedException {
-        recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
+        recyclerView = findViewById(R.id.card_recycler_view);
         progressBarRecentMatches = findViewById(R.id.progressBarRecentMatches);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new DataAdapter(this);
+        adapter = new MatchesDataAdapter(this);
         recyclerView.setAdapter(adapter);
 
         new LoadChampions(this).execute(server);

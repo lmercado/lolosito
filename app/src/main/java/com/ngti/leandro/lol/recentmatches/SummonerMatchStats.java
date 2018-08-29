@@ -1,15 +1,10 @@
 package com.ngti.leandro.lol.recentmatches;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.ngti.leandro.lol.DataAdapter;
-import com.ngti.leandro.lol.R;
-
-import static com.ngti.leandro.lol.utils.Icons.getItemIconUrl;
 
 public class SummonerMatchStats {
 

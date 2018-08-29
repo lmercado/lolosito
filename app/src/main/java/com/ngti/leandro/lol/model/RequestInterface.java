@@ -17,9 +17,9 @@ import retrofit2.http.Path;
 
 public interface RequestInterface {
 
-    String AUTHORIZATION = "X-Riot-Token: RGAPI-47e3edce-ca88-4632-be37-56d0de44a05e";
+    String AUTHORIZATION = "X-Riot-Token: RGAPI-5e6b533d-ca4c-4acd-ad39-b9443c288c42";
 
-    String MATCH_LIST_BY_ACCOUNT_ID = "/lol/match/v3/matchlists/by-account/{accountId}?endIndex=5";
+    String MATCH_LIST_BY_ACCOUNT_ID = "/lol/match/v3/matchlists/by-account/{accountId}?endIndex=1";
     String CHAMPIONS_LIST = "/cdn/{version}/data/en_US/champion.json";
     String DDRAGON_API_VERSIONS = "/realms/na.json";
     String SUMMONER_BY_NAME = "/lol/summoner/v3/summoners/by-name/{summonerName}";

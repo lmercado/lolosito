@@ -1,4 +1,4 @@
-package com.ngti.leandro.lol;
+package com.ngti.leandro.lol.recentmatches;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.model.champions.Champion;
 import com.ngti.leandro.lol.model.ddragon.RunesContainer;
 import com.ngti.leandro.lol.model.match.MatchContainer;
@@ -16,8 +17,6 @@ import com.ngti.leandro.lol.model.match.Participants;
 import com.ngti.leandro.lol.model.match.ParticipantsIdentities;
 import com.ngti.leandro.lol.model.match.Team;
 import com.ngti.leandro.lol.model.matchlist.AllMatches;
-import com.ngti.leandro.lol.recentmatches.Champions;
-import com.ngti.leandro.lol.recentmatches.Matches;
 import com.ngti.leandro.lol.utils.MatchStats;
 
 import java.util.Map;
@@ -33,7 +32,7 @@ import static com.ngti.leandro.lol.utils.Icons.getPrimaryPerkUrl;
 import static com.ngti.leandro.lol.utils.Icons.getSecondaryPerkUrl;
 import static com.ngti.leandro.lol.utils.Icons.getSummonerSpellUrl;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.ViewHolder> {
 
     private Matches matches;
     private Champions champions;
@@ -41,21 +40,20 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     private final Callback mCallback;
 
-    public DataAdapter(final Callback callback) {
+    public MatchesDataAdapter(final Callback callback) {
         mCallback = callback;
     }
 
     @Override
-    public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MatchesDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recent_match, parent, false);
         parent.setBackgroundColor(Color.parseColor("#EDEDED"));
         singleMatchView = view.findViewById(R.id.single_match_view);
         return new ViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(DataAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MatchesDataAdapter.ViewHolder holder, int position) {
 
         Context context = holder.iv_champion_icon.getContext();
         String championName = "";
@@ -230,7 +228,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         void onMatchClicked(AllMatches match);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tv_champion_name;
         private TextView tv_game_type;
         private ImageView iv_champion_icon;

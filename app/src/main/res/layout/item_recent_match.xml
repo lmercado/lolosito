@@ -24,7 +24,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="3dp"
-            android:background="@mipmap/ic_launcher"
+            android:background="@color/transpGray"
             android:scaleType="fitStart" />
 
         <TextView
@@ -177,19 +177,20 @@
             android:background="@color/transpGray" />
 
         <ImageView
-            android:id="@+id/iv_full_info_champion_perk_primary_style"
+            android:id="@+id/iv_recent_matches_perk0"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignEnd="@+id/iv_full_info_summoner_name"
             android:layout_alignTop="@+id/iv_full_info_champion_spell_1"
+            android:background="@color/md_black_1000"
             card_view:srcCompat="@color/transpGray" />
 
         <ImageView
-            android:id="@+id/iv_champion_perk_secondary_style"
+            android:id="@+id/iv_recent_matches_perk_sub_style"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_alignStart="@+id/iv_full_info_champion_perk_primary_style"
-            android:layout_alignTop="@+id/iv_full_info_champion_spell_2"
+            android:layout_alignBottom="@+id/iv_full_info_champion_spell_2"
+            android:layout_alignEnd="@+id/iv_full_info_summoner_name"
             card_view:srcCompat="@color/transpGray" />
 
 

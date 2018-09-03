@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.model.champions.Champion;
-import com.ngti.leandro.lol.model.ddragon.RunesContainer;
 import com.ngti.leandro.lol.model.match.MatchContainer;
 import com.ngti.leandro.lol.model.match.Participants;
 import com.ngti.leandro.lol.model.match.ParticipantsIdentities;
@@ -28,7 +27,8 @@ import timber.log.Timber;
 
 import static com.ngti.leandro.lol.splash.GetSpells.allSpells;
 import static com.ngti.leandro.lol.utils.Icons.getItemIconUrl;
-import static com.ngti.leandro.lol.utils.Icons.getPrimaryPerkUrl;
+import static com.ngti.leandro.lol.utils.Icons.getPerk;
+import static com.ngti.leandro.lol.utils.Icons.getPerkStyle;
 
 public class FullMatchInfoDataAdapter extends RecyclerView.Adapter<FullMatchInfoDataAdapter.ViewHolder> {
 
@@ -85,11 +85,11 @@ public class FullMatchInfoDataAdapter extends RecyclerView.Adapter<FullMatchInfo
         /*
             Set summoner perks
          */
-        int summonerPrimaryPerk = participants[position].getStats().getPerkPrimaryStyle();
-        int summonerSubstylePerk = participants[position].getStats().getPerkSubStyle();
+        int summonerPerk0 = participants[position].getStats().getPerk0();
+        int summonerPerkSubStyle = participants[position].getStats().getPerkSubStyle();
 
-        loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerPrimaryPerk)), holder.iv_full_info_champion_perk_primary_style, context);
-//        loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerSubstylePerk)), holder.iv_full_info_champion_perk_secondary_style, context);
+        loadUrlIntoHolder(getPerk(summonerPerk0), holder.iv_full_info_champion_perk0, context);
+        loadUrlIntoHolder(getPerkStyle(summonerPerkSubStyle), holder.iv_full_info_champion_perk_sub_style, context);
 
         /*
             Set summoner KDA
@@ -150,8 +150,8 @@ public class FullMatchInfoDataAdapter extends RecyclerView.Adapter<FullMatchInfo
         private TextView iv_full_info_summoner_name;
         private ImageView iv_full_info_champion_spell_1;
         private ImageView iv_full_info_champion_spell_2;
-        private ImageView iv_full_info_champion_perk_primary_style;
-        private ImageView iv_full_info_champion_perk_secondary_style;
+        private ImageView iv_full_info_champion_perk0;
+        private ImageView iv_full_info_champion_perk_sub_style;
         private TextView tv_full_info_champion_kill_death_assists;
         private TextView tv_full_info_champion_kda;
         private ImageView iv_full_info_champion_item0;
@@ -170,8 +170,8 @@ public class FullMatchInfoDataAdapter extends RecyclerView.Adapter<FullMatchInfo
             iv_full_info_summoner_name = itemView.findViewById(R.id.iv_full_info_summoner_name);
             iv_full_info_champion_spell_1 = itemView.findViewById(R.id.iv_full_info_champion_spell_1);
             iv_full_info_champion_spell_2 = itemView.findViewById(R.id.iv_full_info_champion_spell_2);
-            iv_full_info_champion_perk_primary_style = itemView.findViewById(R.id.iv_full_info_champion_perk_primary_style);
-            iv_full_info_champion_perk_secondary_style = itemView.findViewById(R.id.iv_champion_perk_secondary_style);
+            iv_full_info_champion_perk0 = itemView.findViewById(R.id.iv_full_info_champion_perk0);
+            iv_full_info_champion_perk_sub_style = itemView.findViewById(R.id.iv_full_info_champion_perk_sub_style);
             tv_full_info_champion_kill_death_assists = itemView.findViewById(R.id.tv_full_info_champion_kill_death_assists);
             tv_full_info_champion_kda = itemView.findViewById(R.id.tv_full_info_champion_kda);
             iv_full_info_champion_item0 = itemView.findViewById(R.id.iv_full_info_champion_item0);

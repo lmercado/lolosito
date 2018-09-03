@@ -57,19 +57,20 @@
             android:background="@color/transpGray" />
 
         <ImageView
-            android:id="@+id/iv_full_info_champion_perk_primary_style"
+            android:id="@+id/iv_full_info_champion_perk0"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignTop="@+id/iv_full_info_champion_icon"
             android:layout_marginLeft="3dp"
             android:layout_toEndOf="@+id/iv_full_info_champion_spell_1"
+            android:background="@color/md_black_1000"
             card_view:srcCompat="@color/transpGray" />
 
         <ImageView
-            android:id="@+id/iv_full_info_champion_perk_secondary_style"
+            android:id="@+id/iv_full_info_champion_perk_sub_style"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_alignStart="@+id/iv_full_info_champion_perk_primary_style"
+            android:layout_alignStart="@+id/iv_full_info_champion_perk0"
             android:layout_alignTop="@+id/iv_full_info_champion_spell_2"
             card_view:srcCompat="@color/transpGray" />
 

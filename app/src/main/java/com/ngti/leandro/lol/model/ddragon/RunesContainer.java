@@ -40,17 +40,17 @@ public class RunesContainer {
         return slots;
     }
 
-    public static int getRuneIconById(int id) {
-        int runeId;
-        for (RunesContainer runes : GetRunes.allRunes) {
-            if (runes.getId() == id) {
-                runeId = runes.getId();
-
-                return runeId;
-            }
-        }
-        return 0;
-    }
+//    public static int getRuneIconById(int id) {
+//        int runeId;
+//        for (RunesContainer runes : GetRunes.allRunes) {
+//            if (runes.getId() == id) {
+//                runeId = runes.getId();
+//
+//                return runeId;
+//            }
+//        }
+//        return 0;
+//    }
 
     @Override
     public String toString() {

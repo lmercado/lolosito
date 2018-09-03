@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.model.champions.Champion;
-import com.ngti.leandro.lol.model.ddragon.RunesContainer;
 import com.ngti.leandro.lol.model.match.MatchContainer;
 import com.ngti.leandro.lol.model.match.Participants;
 import com.ngti.leandro.lol.model.match.ParticipantsIdentities;
@@ -28,8 +27,8 @@ import static com.ngti.leandro.lol.splash.GetSpells.allSpells;
 import static com.ngti.leandro.lol.utils.GameModes.getMatchModeByQueueId;
 import static com.ngti.leandro.lol.utils.Icons.getChampionIconUrl;
 import static com.ngti.leandro.lol.utils.Icons.getItemIconUrl;
-import static com.ngti.leandro.lol.utils.Icons.getPrimaryPerkUrl;
-import static com.ngti.leandro.lol.utils.Icons.getSecondaryPerkUrl;
+import static com.ngti.leandro.lol.utils.Icons.getPerk;
+import static com.ngti.leandro.lol.utils.Icons.getPerkStyle;
 import static com.ngti.leandro.lol.utils.Icons.getSummonerSpellUrl;
 
 public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.ViewHolder> {
@@ -88,12 +87,6 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
         long summonerTotalHeal;
         int summonerTotalMinionsKilled = 0;
         int summonerPerk0 = 0;
-        int summonerPerk1 = 0;
-        int summonerPerk2= 0;
-        int summonerPerk3= 0 ;
-        int summonerPerk4= 0;
-        int summonerPerk5= 0;
-        int summonerPerkPrimaryStyle = 0;
         int summonerPerkSubStyle = 0;
 
         AllMatches allMatches = matches.getAllMatches(position);
@@ -153,12 +146,6 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
                         summonerTotalHeal = participant.getStats().getTotalHeal();
                         summonerTotalMinionsKilled = participant.getStats().getTotalMinionsKilled();
                         summonerPerk0 = participant.getStats().getPerk0();
-                        summonerPerk1 = participant.getStats().getPerk1();
-                        summonerPerk2 = participant.getStats().getPerk2();
-                        summonerPerk3 = participant.getStats().getPerk3();
-                        summonerPerk4 = participant.getStats().getPerk4();
-                        summonerPerk5 = participant.getStats().getPerk5();
-                        summonerPerkPrimaryStyle = participant.getStats().getPerkPrimaryStyle();
                         summonerPerkSubStyle = participant.getStats().getPerkSubStyle();
                     }
 
@@ -173,8 +160,8 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
                     }
                 }
 
-                loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerPerkPrimaryStyle)), holder.iv_champion_rune_primary_style, context);
-                loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerPerkSubStyle)), holder.iv_champion_rune_secondary_style, context);
+                loadUrlIntoHolder(getPerk(summonerPerk0), holder.iv_champion_perk_0, context);
+                loadUrlIntoHolder(getPerkStyle(summonerPerkSubStyle), holder.iv_champion_perk_sub_style, context);
 
                 setTextIntoHolder("Level " + summonerChampLevel, holder.tv_champion_final_level);
                 setTextIntoHolder(String.valueOf(summonerKills) + "/" + summonerDeaths + "/" + summonerAssists, holder.tv_kill_death_assists);
@@ -224,7 +211,7 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
         return 0;
     }
 
-    public interface Callback{
+    public interface Callback {
         void onMatchClicked(AllMatches match);
     }
 
@@ -245,8 +232,8 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
         private ImageView iv_champion_item4;
         private ImageView iv_champion_item5;
         private ImageView iv_champion_item6;
-        private ImageView iv_champion_rune_primary_style;
-        private ImageView iv_champion_rune_secondary_style;
+        private ImageView iv_champion_perk_0;
+        private ImageView iv_champion_perk_sub_style;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -270,8 +257,8 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
             iv_champion_item4 = itemView.findViewById(R.id.iv_full_info_champion_item4);
             iv_champion_item5 = itemView.findViewById(R.id.iv_full_info_champion_item5);
             iv_champion_item6 = itemView.findViewById(R.id.iv_champion_item6);
-            iv_champion_rune_primary_style = itemView.findViewById(R.id.iv_full_info_champion_perk_primary_style);
-            iv_champion_rune_secondary_style = itemView.findViewById(R.id.iv_champion_perk_secondary_style);
+            iv_champion_perk_0 = itemView.findViewById(R.id.iv_recent_matches_perk0);
+            iv_champion_perk_sub_style = itemView.findViewById(R.id.iv_recent_matches_perk_sub_style);
         }
 
         @Override

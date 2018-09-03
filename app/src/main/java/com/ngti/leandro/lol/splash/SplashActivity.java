@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.ngti.leandro.lol.R;
@@ -31,13 +32,13 @@ public class SplashActivity extends AppCompatActivity {
 
             new GetGameVersion(this).execute();
             new GetSpells(this).execute();
-            new GetRunes(this).execute();
 
         } else {
             Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
         }
 
         buttonAddSummonerName = findViewById(R.id.addSummonerButton);
+
 
         buttonAddSummonerName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+
     }
 
     public void apiVersionsLoaded(Integer apiResponseCode) {

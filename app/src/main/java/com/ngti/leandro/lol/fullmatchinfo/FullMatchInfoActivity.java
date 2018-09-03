@@ -6,16 +6,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.ngti.leandro.lol.R;
 import com.ngti.leandro.lol.model.match.MatchContainer;
 import com.ngti.leandro.lol.recentmatches.Champions;
 import com.ngti.leandro.lol.recentmatches.Matches;
+import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 
 import java.net.HttpURLConnection;
+import java.util.Objects;
 
 public class FullMatchInfoActivity extends AppCompatActivity {
 
@@ -95,6 +99,15 @@ public class FullMatchInfoActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
 }

@@ -57,13 +57,13 @@ public class SummonerMatchStats {
         }
     }
 
-    public static void loadUrlIntoHolder(String url, ImageView holder, Context context) {
+    static void loadUrlIntoHolder(String url, ImageView holder, Context context) {
         if (url != null) {
             Glide.with(context).load(url).into(holder);
         }
     }
 
-    public static void setTextIntoHolder(String text, TextView holderId) {
+    static void setTextIntoHolder(String text, TextView holderId) {
         holderId.setText(text);
     }
 

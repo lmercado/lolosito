@@ -11,15 +11,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ngti.leandro.lol.R;
+import com.ngti.leandro.lol.model.match.MatchContainer;
+import com.ngti.leandro.lol.recentmatches.Champions;
 import com.ngti.leandro.lol.recentmatches.Matches;
 
 import java.net.HttpURLConnection;
-import java.util.Map;
 
 public class FullMatchInfoActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private MatchInfoDataAdapter adapter;
+    private FullMatchInfoDataAdapter adapter;
     private ProgressBar progressBarFullMatchInfo;
 
     final Context context = this;
@@ -28,8 +29,9 @@ public class FullMatchInfoActivity extends AppCompatActivity {
     private static final String KEY_SUMMONER_NAME = "summoner";
     private static String KEY_MATCH_ID = "matchId";
     private String server;
-    private long matchId;
+    public static long matchId;
     public static String summoner;
+
 
     public static Intent getLaunchIntent(Context context, String serverName, String summonerName, long matchId) {
         final Intent intent = new Intent(context, FullMatchInfoActivity.class);
@@ -38,7 +40,6 @@ public class FullMatchInfoActivity extends AppCompatActivity {
         arguments.putString(KEY_SERVER_NAME, serverName);
         arguments.putString(KEY_SUMMONER_NAME, summonerName);
         arguments.putLong(KEY_MATCH_ID, matchId);
-
         intent.putExtras(arguments);
         return intent;
     }
@@ -47,28 +48,25 @@ public class FullMatchInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_match_info);
+        progressBarFullMatchInfo = findViewById(R.id.progressBarFullMatchInfo);
 
         processIntent(getIntent());
 
-        try {
-            initViews();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new LoadMatchAndChampionsFullMatchInfo(this).execute(server, String.valueOf(matchId));
+
+        initViews();
+
     }
 
-    private void initViews() throws InterruptedException {
-//        recyclerView = findViewById(R.id.card_recycler_view);
+    private void initViews() {
+        recyclerView = findViewById(R.id.recycler_view_full_match_info);
         progressBarFullMatchInfo = findViewById(R.id.progressBarFullMatchInfo);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new MatchInfoDataAdapter();
-//        recyclerView.setAdapter(adapter);
-
-//        new LoadChampions(this).execute(server);
-        new LoadSingleMatch(this).execute(server, String.valueOf(matchId));
-
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adapter = new FullMatchInfoDataAdapter();
+        recyclerView.setAdapter(adapter);
     }
+
 
     private void processIntent(Intent intent) {
         final Bundle extras = intent.getExtras();
@@ -80,11 +78,12 @@ public class FullMatchInfoActivity extends AppCompatActivity {
         }
     }
 
-    public void matchLoaded(Map match, Integer responseByMatchId) {
-        if (responseByMatchId == HttpURLConnection.HTTP_OK) {
-            adapter.setData(match);
+
+    public void fullMatchInfoLoaded(FullMatchInfoAndChampions matchAndChampions, int matchLoadResponse, int championsLoadResponse) {
+        if (matchLoadResponse == HttpURLConnection.HTTP_OK && championsLoadResponse == HttpURLConnection.HTTP_OK) {
+            adapter.setData(matchAndChampions);
         } else {
-            if (responseByMatchId != 0) {
+            if (matchLoadResponse != 0 || championsLoadResponse != 0) {
                 Toast.makeText(context, "API Error. Try again later", Toast.LENGTH_LONG).show();
                 finish();
             }
@@ -97,4 +96,5 @@ public class FullMatchInfoActivity extends AppCompatActivity {
         super.finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
 }

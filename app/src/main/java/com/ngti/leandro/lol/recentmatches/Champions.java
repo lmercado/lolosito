@@ -9,7 +9,7 @@ public class Champions {
 
     private final Map<Integer, Champion> champions;
 
-    Champions(Map<Integer, Champion> allChampions) {
+    public Champions(Map<Integer, Champion> allChampions) {
         this.champions = allChampions;
     }
 

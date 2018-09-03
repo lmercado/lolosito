@@ -88,11 +88,11 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
         long summonerTotalHeal;
         int summonerTotalMinionsKilled = 0;
         int summonerPerk0 = 0;
-        int summonerPerk1;
-        int summonerPerk2;
-        int summonerPerk3;
-        int summonerPerk4;
-        int summonerPerk5;
+        int summonerPerk1 = 0;
+        int summonerPerk2= 0;
+        int summonerPerk3= 0 ;
+        int summonerPerk4= 0;
+        int summonerPerk5= 0;
         int summonerPerkPrimaryStyle = 0;
         int summonerPerkSubStyle = 0;
 
@@ -174,7 +174,7 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
                 }
 
                 loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerPerkPrimaryStyle)), holder.iv_champion_rune_primary_style, context);
-                loadUrlIntoHolder(getSecondaryPerkUrl(summonerPerk0), holder.iv_champion_rune_secondary_style, context);
+                loadUrlIntoHolder(getPrimaryPerkUrl(RunesContainer.getRuneIconById(summonerPerkSubStyle)), holder.iv_champion_rune_secondary_style, context);
 
                 setTextIntoHolder("Level " + summonerChampLevel, holder.tv_champion_final_level);
                 setTextIntoHolder(String.valueOf(summonerKills) + "/" + summonerDeaths + "/" + summonerAssists, holder.tv_kill_death_assists);
@@ -254,23 +254,23 @@ public class MatchesDataAdapter extends RecyclerView.Adapter<MatchesDataAdapter.
             final View view = itemView.findViewById(R.id.single_match_view);
             view.setOnClickListener(this);
 
-            tv_champion_name = itemView.findViewById(R.id.tv_champion_name);
+            tv_champion_name = itemView.findViewById(R.id.iv_full_info_summoner_name);
             tv_game_type = itemView.findViewById(R.id.tv_game_type);
             iv_champion_icon = itemView.findViewById(R.id.iv_champion_icon);
-            iv_champion_spell_1 = itemView.findViewById(R.id.iv_champion_spell_1);
-            iv_champion_spell_2 = itemView.findViewById(R.id.iv_champion_spell_2);
-            tv_kill_death_assists = itemView.findViewById(R.id.tv_kill_death_assists);
-            tv_kda = itemView.findViewById(R.id.tv_kda);
+            iv_champion_spell_1 = itemView.findViewById(R.id.iv_full_info_champion_spell_1);
+            iv_champion_spell_2 = itemView.findViewById(R.id.iv_full_info_champion_spell_2);
+            tv_kill_death_assists = itemView.findViewById(R.id.tv_full_info_champion_kill_death_assists);
+            tv_kda = itemView.findViewById(R.id.tv_full_info_champion_kda);
             tv_champion_final_level = itemView.findViewById(R.id.tv_champion_final_level);
             tv_champion_cs = itemView.findViewById(R.id.tv_champion_cs);
-            iv_champion_item0 = itemView.findViewById(R.id.iv_champion_item0);
-            iv_champion_item1 = itemView.findViewById(R.id.iv_champion_item1);
-            iv_champion_item2 = itemView.findViewById(R.id.iv_champion_item2);
-            iv_champion_item3 = itemView.findViewById(R.id.iv_champion_item3);
-            iv_champion_item4 = itemView.findViewById(R.id.iv_champion_item4);
-            iv_champion_item5 = itemView.findViewById(R.id.iv_champion_item5);
+            iv_champion_item0 = itemView.findViewById(R.id.iv_full_info_champion_item0);
+            iv_champion_item1 = itemView.findViewById(R.id.iv_full_info_champion_item1);
+            iv_champion_item2 = itemView.findViewById(R.id.iv_full_info_champion_item2);
+            iv_champion_item3 = itemView.findViewById(R.id.iv_full_info_champion_item3);
+            iv_champion_item4 = itemView.findViewById(R.id.iv_full_info_champion_item4);
+            iv_champion_item5 = itemView.findViewById(R.id.iv_full_info_champion_item5);
             iv_champion_item6 = itemView.findViewById(R.id.iv_champion_item6);
-            iv_champion_rune_primary_style = itemView.findViewById(R.id.iv_champion_perk_primary_style);
+            iv_champion_rune_primary_style = itemView.findViewById(R.id.iv_full_info_champion_perk_primary_style);
             iv_champion_rune_secondary_style = itemView.findViewById(R.id.iv_champion_perk_secondary_style);
         }
 

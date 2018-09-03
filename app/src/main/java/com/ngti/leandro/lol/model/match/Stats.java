@@ -129,6 +129,10 @@ public class Stats {
     @SerializedName("perkSubStyle")
     private int perkSubStyle;
 
+    @Expose
+    @SerializedName("win")
+    private boolean win;
+
     public int getKills() {
         return kills;
     }
@@ -288,5 +292,9 @@ public class Stats {
                 ", perkPrimaryStyle=" + perkPrimaryStyle +
                 ", perkSubStyle=" + perkSubStyle +
                 '}';
+    }
+
+    public boolean isWin() {
+        return win;
     }
 }

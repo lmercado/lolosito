@@ -1,10 +1,12 @@
-package com.ngti.leandro.lol.recentmatches;
+package com.ngti.leandro.lol.fullmatchinfo;
 
 import android.os.AsyncTask;
 
 import com.ngti.leandro.lol.model.RequestInterface;
+import com.ngti.leandro.lol.model.RetrofitClientInstance;
 import com.ngti.leandro.lol.model.champions.Champion;
 import com.ngti.leandro.lol.model.champions.ChampionsContainer;
+import com.ngti.leandro.lol.model.match.MatchContainer;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -18,22 +20,25 @@ import timber.log.Timber;
 
 import static com.ngti.leandro.lol.splash.GetGameVersion.DDRAGON_CHAMPION_VERSION;
 
-public class LoadChampions extends AsyncTask<String, Integer, Champions> {
+public class LoadMatchAndChampionsFullMatchInfo extends AsyncTask<String, Integer, FullMatchInfoAndChampions> {
 
-    private RecentMatchesActivity recentMatchesActivity;
+    private FullMatchInfoActivity fullMatchInfoActivity;
     private int loadChampionsResponseCode;
+    private int loadMatchByIdResponseCode;
 
     private static Retrofit retrofit;
     private static String BASE_URL = "https://ddragon.leagueoflegends.com";
 
-    LoadChampions(RecentMatchesActivity recentMatchesActivity) {
-        this.recentMatchesActivity = recentMatchesActivity;
+    LoadMatchAndChampionsFullMatchInfo(FullMatchInfoActivity fullMatchInfoActivity) {
+        this.fullMatchInfoActivity = fullMatchInfoActivity;
     }
 
     @Override
-    protected Champions doInBackground(String... params) {
+    protected FullMatchInfoAndChampions doInBackground(String... params) {
+
+
         if (retrofit == null) {
-            retrofit = new retrofit2.Retrofit.Builder()
+            retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -58,11 +63,30 @@ public class LoadChampions extends AsyncTask<String, Integer, Champions> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new Champions(allChampions);
+
+
+        RequestInterface service2 = RetrofitClientInstance.getInstance(params[0]).create(RequestInterface.class);
+
+        Call<MatchContainer> loadMatchById = service2.loadMatchById(Long.parseLong(params[1]));
+
+        MatchContainer match = null;
+        try {
+            Response<MatchContainer> loadMatchByIdResponse = loadMatchById.execute();
+            loadMatchByIdResponseCode = loadMatchByIdResponse.code();
+            Timber.i("Response code match by id call: %s", loadMatchByIdResponseCode);
+
+            if (loadMatchByIdResponseCode == HttpURLConnection.HTTP_OK) {
+                match = loadMatchByIdResponse.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new FullMatchInfoAndChampions(match, allChampions);
     }
 
     @Override
-    protected void onPostExecute(Champions champions) {
-        recentMatchesActivity.championsLoaded(champions, loadChampionsResponseCode);
+    protected void onPostExecute(FullMatchInfoAndChampions fullMatchInfoAndChampions) {
+        fullMatchInfoActivity.fullMatchInfoLoaded(fullMatchInfoAndChampions, loadMatchByIdResponseCode, loadChampionsResponseCode);
     }
 }

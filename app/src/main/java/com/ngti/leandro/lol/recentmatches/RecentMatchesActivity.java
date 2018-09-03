@@ -71,18 +71,16 @@ public class RecentMatchesActivity extends AppCompatActivity implements MatchesD
     }
 
     private void initViews() throws InterruptedException {
-        recyclerView = findViewById(R.id.card_recycler_view);
+        recyclerView = findViewById(R.id.recycler_view_recent_matches);
         progressBarRecentMatches = findViewById(R.id.progressBarRecentMatches);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new MatchesDataAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        new LoadChampions(this).execute(server);
+        new LoadChampionsRecentMatches(this).execute(server);
         new LoadMatches(this).execute(server, summoner);
-
     }
-
 
     public void championsLoaded(Champions champions, Integer response) {
         if (response == HttpURLConnection.HTTP_OK) {

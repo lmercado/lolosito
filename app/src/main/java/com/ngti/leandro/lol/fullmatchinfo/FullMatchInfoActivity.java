@@ -98,7 +98,7 @@ public class FullMatchInfoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.finish();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     @Override

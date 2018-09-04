@@ -20,12 +20,10 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
     private Spinner serversSpinner;
     private EditText summonerTextEditor;
     final Context context = this;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
 
 
         serversSpinner = findViewById(R.id.serversSpinner);
@@ -63,14 +61,11 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.ok_button_search) {
-
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             final String serverName = serversSpinner.getSelectedItem().toString();
             final String summonerName = summonerTextEditor.getText().toString();
             final Intent intent = RecentMatchesActivity.getLaunchIntent(SummonerServerSearchActivity.this, serverName, summonerName);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
         }
 
         if (id == android.R.id.home) {
@@ -80,13 +75,10 @@ public class SummonerServerSearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @Override
     public void onBackPressed() {
         super.finish();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-
 
 }

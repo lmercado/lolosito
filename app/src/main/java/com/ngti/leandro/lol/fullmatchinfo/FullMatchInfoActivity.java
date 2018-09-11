@@ -10,16 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.ngti.leandro.lol.R;
-import com.ngti.leandro.lol.model.match.MatchContainer;
-import com.ngti.leandro.lol.recentmatches.Champions;
-import com.ngti.leandro.lol.recentmatches.Matches;
-import com.ngti.leandro.lol.recentmatches.RecentMatchesActivity;
 
 import java.net.HttpURLConnection;
-import java.util.Objects;
 
 public class FullMatchInfoActivity extends AppCompatActivity {
 

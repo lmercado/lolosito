@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/iv_full_info_summoner_name"
-            android:layout_width="71dp"
+            android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignTop="@+id/iv_full_info_champion_icon"
@@ -98,15 +98,15 @@
             android:id="@+id/iv_full_info_champion_item0"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/iv_full_info_champion_item1"
+            android:layout_marginTop="10dp"
             android:background="@color/transpGray" />
 
         <ImageView
             android:id="@+id/iv_full_info_champion_item1"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/iv_full_info_champion_item2"
             android:background="@color/transpGray" />
 
@@ -114,7 +114,7 @@
             android:id="@+id/iv_full_info_champion_item2"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/iv_full_info_champion_item3"
             android:background="@color/transpGray" />
 
@@ -122,7 +122,7 @@
             android:id="@+id/iv_full_info_champion_item3"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/iv_full_info_champion_item4"
             android:background="@color/transpGray" />
 
@@ -130,7 +130,7 @@
             android:id="@+id/iv_full_info_champion_item4"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/iv_full_info_champion_item5"
             android:background="@color/transpGray" />
 
@@ -138,7 +138,7 @@
             android:id="@+id/iv_full_info_champion_item5"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/iv_full_info_champion_item6"
             android:background="@color/transpGray" />
 
@@ -147,7 +147,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
             android:background="@color/transpGray" />
 
